@@ -1,0 +1,1 @@
+web: gunicorn essence_reserve.wsgi

@@ -26,10 +26,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-3e%q(1(0az8j6*8qi!j0t7%zp+qf7ta@y-5hj&bjbqhjcm1+u3'
 
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ["8000-jojoakh-essencecuisine-rld4icjchpk.ws.codeinstitute-ide.net", ".herokuapp.com"]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-jojoakh-essencecuisine-rld4icjchpk.ws.codeinstitute-ide.net',
+    'https://your-heroku-app.herokuapp.com'
+]
 
 
 # Application definition

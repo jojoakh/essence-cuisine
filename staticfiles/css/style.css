@@ -1,0 +1,48 @@
+/* General Styling */
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.navbar-brand {
+    font-weight: 700;
+}
+
+.hero {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100vh;
+    background: url('../images/background-image.jpg') no-repeat center center;
+    background-size: cover;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    color: white;
+}
+
+.hero p {
+    font-size: 1.5rem;
+    color: #f8f9fa;
+}
+
+footer {
+    font-size: 0.9rem;
+}
+
+.about-page {
+    background-color: #f9f9f9;
+}
+
+.about-page h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.about-page p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+}

@@ -9,13 +9,13 @@ class Table(models.Model):
         return f"Table {self.number} - {self.seats} seats"
 
 class Reservation(models.Model):
-    name = models.CharField(max_length=100)
+    full_name = models.CharField(max_length=255)
     phone = models.CharField(max_length=15)
     email = models.EmailField()
-    date = models.DateField()
-    time = models.TimeField()
+    reservation_date = models.DateTimeField()
     guests = models.IntegerField()
     table = models.ForeignKey(Table, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"Reservation for {self.name} on {self.date} at {self.time}"
+        return f"Reservation for {self.full_name} on {self.reservation_date}"
+

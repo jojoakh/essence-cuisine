@@ -1,48 +1,62 @@
-/* General Styling */
-body {
-    font-family: 'Montserrat', sans-serif;
-}
-
-.navbar-brand {
-    font-weight: 700;
-}
-
 .hero {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 100vh;
-    background: url('../images/background-image.jpg') no-repeat center center;
-    background-size: cover;
+    height: 30vh;
+    overflow: hidden;
+    position: relative;
 }
 
-.hero h1 {
-    font-size: 3.5rem;
-    color: white;
+.hero img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
 }
 
-.hero p {
-    font-size: 1.5rem;
-    color: #f8f9fa;
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2; /* Ensures text stays above the image */
 }
 
-footer {
-    font-size: 0.9rem;
+.hero .btn {
+    background-color: #ffc107; /* Adjust button color */
+    color: #000; /* Adjust text color */
 }
 
+/* About Page Section */
 .about-page {
-    background-color: #f9f9f9;
+    background-color: #f8f9fa; /* Light background for contrast */
+    color: #333; /* Text color for readability */
 }
 
 .about-page h2 {
-    font-size: 2.5rem;
-    color: #333;
-    margin-bottom: 20px;
+    font-family: 'Montserrat', sans-serif; /* Ensure it matches your theme font */
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #333; /* Heading color */
 }
 
 .about-page p {
+    font-family: 'Montserrat', sans-serif;
     font-size: 1.1rem;
-    line-height: 1.8;
-    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: #555; /* Text color */
+}
+
+.about-page img {
+    border-radius: 10px; /* Soft rounded corners */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-page .row {
+        flex-direction: column; /* Stack columns on smaller screens */
+    }
+
+    .about-page .col-md-6 {
+        margin-bottom: 1.5rem; /* Add spacing between stacked columns */
+    }
 }

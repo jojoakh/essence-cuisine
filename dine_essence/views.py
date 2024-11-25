@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import ReservationForm
+from .models import MenuItem
+
 
 
 # Create your views here.
@@ -23,4 +25,14 @@ def make_reservation(request):
         form = ReservationForm()
     return render(request, 'dine_essence/make_reservation.html', {'form': form})
 
+
+def menu_view(request):
+    categories = MenuItem.objects.values('category').distinct()  
+    menu_items = MenuItem.objects.all()  
+    context = {
+        'categories': categories,
+        'menu_items': menu_items,
+    }
+
+    return render(request, 'dine_essence/menu.html', context)
 

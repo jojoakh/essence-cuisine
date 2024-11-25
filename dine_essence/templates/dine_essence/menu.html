@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <h1>Our Menu</h1>
+
+        {% for category in categories %}
+            <h2>{{ category.category }}</h2>
+            <ul>
+                {% for item in menu_items %}
+                    {% if item.category == category.category %}
+                        <li>
+                            <strong>{{ item.name }}</strong><br>
+                            {{ item.description }}<br>
+                            <strong>${{ item.price }}</strong>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </div>
+{% endblock %}

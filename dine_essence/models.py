@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import time
 
 # Create your models here.
 class Table(models.Model):
@@ -8,14 +9,15 @@ class Table(models.Model):
     def __str__(self):
         return f"Table {self.number} - {self.seats} seats"
 
+
 class Reservation(models.Model):
-    full_name = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=50, default="")
+    last_name = models.CharField(max_length=50, default="")
     phone = models.CharField(max_length=15)
     email = models.EmailField()
-    reservation_date = models.DateTimeField()
-    guests = models.IntegerField()
-    table = models.ForeignKey(Table, on_delete=models.CASCADE)
+    reservation_date = models.DateField()
+    reservation_time = models.TimeField()
+    guests = models.PositiveIntegerField()
 
     def __str__(self):
-        return f"Reservation for {self.full_name} on {self.reservation_date}"
-
+        return f"{self.first_name} {self.last_name} - {self.reservation_date} at {self.reservation_time}"

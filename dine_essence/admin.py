@@ -12,8 +12,8 @@ class TableAdmin(admin.ModelAdmin):
 # Register the Reservation model
 @admin.register(Reservation)
 class ReservationAdmin(admin.ModelAdmin):
-    list_display = ('full_name', 'reservation_date', 'guests', 'table')  
-    search_fields = ('full_name', 'email', 'phone')  
+    list_display = ('first_name', 'last_name', 'reservation_date', 'guests')  
+    search_fields = ('first_name', 'last_name', 'email', 'phone')  
     list_filter = ('reservation_date',) 
     ordering = ('reservation_date',) 
     date_hierarchy = 'reservation_date' 

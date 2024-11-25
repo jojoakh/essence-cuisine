@@ -15,26 +15,27 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 2; /* Ensures text stays above the image */
+    z-index: 2; 
 }
 
 .hero .btn {
-    background-color: #ffc107; /* Adjust button color */
-    color: #000; /* Adjust text color */
+    background-color: #ffc107; 
+    color: #000; 
 }
 
 /* About Page Section */
 .about-page {
-    background-color: #f8f9fa; /* Light background for contrast */
-    color: #333; /* Text color for readability */
+    background-color: #f8f9fa; 
+    color: #333; 
+    
 }
 
 .about-page h2 {
-    font-family: 'Montserrat', sans-serif; /* Ensure it matches your theme font */
+    font-family: 'Montserrat', sans-serif; 
     font-size: 2rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    color: #333; /* Heading color */
+    color: #333; 
 }
 
 .about-page p {
@@ -42,21 +43,28 @@
     font-size: 1.1rem;
     line-height: 1.6;
     margin-bottom: 1rem;
-    color: #555; /* Text color */
+    color: #555; 
 }
 
 .about-page img {
-    border-radius: 10px; /* Soft rounded corners */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    height: 60vh;
+    max-width: fit-content;
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.align-items-center {
+    align-items: center !important;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .about-page .row {
-        flex-direction: column; /* Stack columns on smaller screens */
+        flex-direction: column; 
     }
 
     .about-page .col-md-6 {
-        margin-bottom: 1.5rem; /* Add spacing between stacked columns */
+        margin-bottom: 1.5rem; 
     }
 }
+

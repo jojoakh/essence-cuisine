@@ -2,14 +2,73 @@
 {% load static %}
 
 {% block content %}
-<div class="container py-5">
-    <h2 class="mb-4">Make a Reservation</h2>
-    <form method="post" class="p-4 border rounded bg-light">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Submit Reservation</button>
-    </form>
-</div>
+<h2 class="mb-4">Reserve a Table</h2>
+<form method="post" action="{% url 'make_reservation' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="reservation-date" class="form-label">Select Date</label>
+        <input type="date" id="reservation-date" name="reservation_date" class="form-control" 
+        required min="{{ today_date|date:'Y-m-d' }}" value="{{ today_date|date:'Y-m-d' }}">
+ 
+    </div>
+    <div class="mb-3">
+        <label for="time-slot" class="form-label">Select Time</label>
+        <select id="time-slot" name="reservation_time" class="form-select" required>
+            <option value="11:00">11:00 AM</option>
+            <option value="11:30">11:30 AM</option>
+            <option value="12:00">12:00 PM</option>
+            <option value="12:30">12:30 PM</option>
+            <option value="13:00">01:00 PM</option>
+            <option value="13:30">01:30 PM</option>
+            <option value="14:00">02:00 PM</option>
+            <option value="14:30">02:30 PM</option>
+            <option value="15:00">03:00 PM</option>
+            <option value="15:30">03:30 PM</option>
+            <option value="16:00">04:00 PM</option>
+            <option value="16:30">04:30 PM</option>
+            <option value="17:00">05:00 PM</option>
+            <option value="17:30">05:30 PM</option>
+            <option value="18:00">06:00 PM</option>
+            <option value="18:30">06:30 PM</option>
+            <option value="19:00">07:00 PM</option>
+            <option value="19:30">07:30 PM</option>
+            <option value="20:00">08:00 PM</option>
+            <option value="20:30">08:30 PM</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="guests" class="form-label">Number of Guests</label>
+        <select id="guests" name="guests" class="form-select" required>
+            {% for i in guest_numbers %}
+                <option value="{{ i }}">
+                    {{ i }}
+                    {% if i == 1 %} 
+                        guest
+                    {% else %}
+                        guests
+                    {% endif %}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+   
+    <div class="mb-3">
+        <label for="first_name" class="form-label">First Name</label>
+        <input type="text" id="first_name" name="first_name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="last_name" class="form-label">Last Name</label>
+        <input type="text" id="last_name" name="last_name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" name="email" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="phone" class="form-label">Phone</label>
+        <input type="tel" id="phone" name="phone" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit Booking</button>
+</form>
+
 {% endblock %}
-
-

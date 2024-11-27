@@ -3,7 +3,6 @@ from django_summernote.admin import SummernoteModelAdmin
 from .models import Table, Reservation
 from .models import MenuItem
 
-
 # Register the Table model
 @admin.register(Table)
 class TableAdmin(admin.ModelAdmin):
@@ -19,6 +18,7 @@ class ReservationAdmin(admin.ModelAdmin):
     list_filter = ('reservation_date',) 
     ordering = ('reservation_date',) 
     date_hierarchy = 'reservation_date' 
+
 
 # Register the MenuItem model
 @admin.register(MenuItem)

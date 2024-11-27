@@ -13,15 +13,14 @@ class Table(models.Model):
 class Reservation(models.Model):
     first_name = models.CharField(max_length=50, default="")
     last_name = models.CharField(max_length=50, default="")
-    phone = models.CharField(max_length=15)
+    phone = models.CharField(max_length=25)
     email = models.EmailField()
-    reservation_date = models.DateField()
+    reservation_date = models.DateField()  
     reservation_time = models.TimeField()
     guests = models.PositiveIntegerField()
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} - {self.reservation_date} at {self.reservation_time}"
-
 
 class MenuItem(models.Model):
     CATEGORY_CHOICES = [

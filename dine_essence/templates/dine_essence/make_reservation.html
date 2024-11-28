@@ -2,6 +2,8 @@
 {% load static %}
 
 {% block content %}
+<div class="form-wrapper">
+<div class="form-container">
 <h2 class="mb-4">Reserve a Table</h2>
 <form method="post" action="{% url 'make_reservation' %}">
     {% csrf_token %}
@@ -68,7 +70,12 @@
         <label for="phone" class="form-label">Phone</label>
         <input type="tel" id="phone" name="phone" class="form-control" required>
     </div>
-    <button type="submit" class="btn btn-primary">Submit Booking</button>
+    <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary">Submit Booking</button>
+    </div>
+    
 </form>
+</div>
+</div>
 
 {% endblock %}

@@ -2,13 +2,43 @@
 {% load static %}
 
 {% block content %}
-<section class="about-page py-5">
-    <div class="container">
+
+    
+    <div class="image-background-container position-relative d-flex align-items-center justify-content-center" style="height: 50vh;">
+       
+        <img src="{% static 'images/top-about-image.jpg' %}" alt="woman eating spaghetti" class="img-fluid w-100 h-100" style="object-fit: cover;">
+        
+        <div class="image-background-container-text position-absolute text-center text-white">
+            <h1>About Essence Cuisine</h1>
+    
+        </div>
+    </div>
+
+    <section class="about-page">
+        
+    <!-- Existing About Section -->
+    <div class="container py-5">
         <div class="row align-items-center">
             <div class="col-md-6">
-                <h2>About Essence Cuisine</h2>
-                <p>At Essence Cuisine, we combine passion and expertise to deliver an exceptional dining experience. From our curated menu to the ambiance of our space, we aim to make every visit memorable.</p>
-                <p>Our chefs are dedicated to crafting dishes with fresh, locally sourced ingredients, ensuring that every bite is a celebration of flavor and quality.</p>
+                <p>At Essence Cuisine, we believe that dining is more than just a meal; it is an experience that
+                    engages all the senses. From the moment you step through our doors, you are welcomed into a space
+                    where culinary artistry meets warm hospitality. Every detail, from our carefully designed interiors
+                    to our curated menu, is crafted to provide a sense of comfort, elegance, and delight.
+                </p>
+                <p>
+                    Our philosophy centers around celebrating local flavors while embracing global culinary inspiration.
+                    Each dish is thoughtfully prepared by our passionate chefs, who take pride in using only the
+                    freshest, high-quality ingredients, sourced from local farms and trusted suppliers. By focusing on
+                    seasonal produce, we not only support sustainable practices but also ensure that our offerings are
+                    always vibrant, flavorful, and full of life.
+                </p>
+
+                <p>
+                    At Essence Cuisine, every dish tells a story, and every visit creates a memory. Whether you're
+                    savoring a robust entrée, indulging in a decadent dessert, or enjoying a glass of wine from our
+                    carefully curated selection, we invite you to relax, unwind, and immerse yourself in the essence of
+                    fine dining.
+                </p>
             </div>
             <div class="col-md-6">
                 <img src="{% static 'images/about-image.jpg' %}" alt="A dining table" class="img-fluid rounded">

@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-3e%q(1(0az8j6*8qi!j0t7%zp+qf7ta@y-5hj&bjbqhjcm1+u3
 SECRET_KEY = os.environ.get("SECRET_KEY", "f4745f257adb1e71919a217933564d1f")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["8000-jojoakh-essencecuisine-qlbduc49ssw.ws.codeinstitute-ide.net", ".herokuapp.com"]
 
@@ -146,3 +146,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Authentication settings
+LOGIN_URL = '/login/'  # Redirects to the login page if a user tries to access a protected view
+LOGIN_REDIRECT_URL = '/'  # Redirects after successful login
+LOGOUT_REDIRECT_URL = '/'  # Redirects after successful logout

@@ -1,3 +1,5 @@
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
@@ -21,33 +23,51 @@ def about(request):
     return render(request, 'dine_essence/about.html')
 
 
+def signup_view(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Account created successfully! You can now log in.")
+            return redirect('login')
+        else:
+            messages.error(request, "Error creating account. Please check the form.")
+    else:
+        form = UserCreationForm()
+    return render(request, 'dine_essence/signup.html', {'form': form})
+
+
+@login_required
 def make_reservation(request):
-    today_date = date.today()
-    guest_numbers = range(1, 9)  # Allow guests between 1 and 8
-    
     if request.method == 'POST':
         form = ReservationForm(request.POST)
         if form.is_valid():
-            # Save the reservation
-            reservation = form.save()
-            
-            # Provide success message to the user
-            messages.success(request, "Your reservation has been successfully submitted!")
-            
-            # Redirect to confirmation page
+            reservation = form.save(commit=False)
+            reservation.user = request.user
+            reservation.save()
+            messages.success(request, "Reservation successfully created!")
             return redirect('reservation_confirmation', reservation_id=reservation.id)
-        else:
-            # If form is not valid, show an error message or return the form with errors
-            messages.error(request, "There was an error with your reservation. Please check the form.")
     else:
         form = ReservationForm()
+    return render(request, 'dine_essence/make_reservation.html', {'form': form})
 
-    # Render the reservation form on GET request with context for today_date and guest_numbers
-    return render(request, 'dine_essence/make_reservation.html', {
-        'form': form,
-        'today_date': today_date,
-        'guest_numbers': guest_numbers
-    })
+
+@login_required
+def update_reservation(request, reservation_id):
+    reservation = get_object_or_404(Reservation, id=reservation_id, email=request.user.email)
+
+    if request.method == 'POST':
+        form = ReservationForm(request.POST, instance=reservation)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your reservation was successfully updated.")
+            return redirect('reservation_confirmation', reservation_id=reservation.id)
+        else:
+            messages.error(request, "There was an error updating your reservation.")
+    else:
+        form = ReservationForm(instance=reservation)
+
+    return render(request, 'dine_essence/update_reservation.html', {'form': form, 'reservation': reservation})
 
     
 def check_availability(request):
@@ -103,42 +123,25 @@ def reservation_confirmation(request, reservation_id):
     reservation = get_object_or_404(Reservation, id=reservation_id)
     return render(request, 'dine_essence/confirmation.html', {'reservation': reservation})
 
+@login_required
 def cancel_reservation(request):
+    # Fetch user's reservations
+    user_reservations = Reservation.objects.filter(user=request.user)
+
     if request.method == 'POST':
-        email = request.POST.get('email')
-        confirm = request.POST.get('confirm', 'no')  # Check if this is a confirmation step
+        # Get the reservation ID from the form
+        reservation_id = request.POST.get('reservation_id')
 
-        # Validate the email input
-        try:
-            validate_email(email)
-        except ValidationError:
-            messages.error(request, "Please enter a valid email address.")
-            return render(request, 'dine_essence/cancel_reservation.html')  # Re-render the form with an error
+        # Ensure the reservation exists and belongs to the logged-in user
+        reservation = get_object_or_404(user_reservations, id=reservation_id)
 
-        # Handle confirmation step
-        if confirm == 'yes':
-            try:
-                # Find the reservation by email
-                reservation = Reservation.objects.filter(email=email).first()
-                if reservation:
-                    reservation.delete()  # Delete the reservation
-                    messages.success(request, "Your reservation has been successfully canceled.")
-                else:
-                    messages.error(request, "No reservations found for the provided email.")
-            except Exception as e:
-                messages.error(request, f"An unexpected error occurred: {str(e)}")
-            return redirect('index')  # Redirect to homepage or another page after cancellation
+        # Delete the reservation
+        reservation.delete()
+        messages.success(request, "Your reservation has been successfully canceled.")
+        return redirect('index')
 
-        # Handle showing reservation details
-        reservation = Reservation.objects.filter(email=email).first()
-        if reservation:
-            return render(request, 'dine_essence/confirm_cancellation.html', {'reservation': reservation, 'email': email})
-        else:
-            messages.error(request, "No reservations found for the provided email.")
-            return redirect('cancel_reservation')  # Redirect back to the cancellation form
-
-    # Render the cancellation form on GET request
-    return render(request, 'dine_essence/cancel_reservation.html')
+    # Render the cancellation form with user's reservations
+    return render(request, 'dine_essence/cancel_reservation.html', {'reservations': user_reservations})
 
     
 def menu_view(request):

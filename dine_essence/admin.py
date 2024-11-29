@@ -13,11 +13,20 @@ class TableAdmin(admin.ModelAdmin):
 # Register the Reservation model
 @admin.register(Reservation)
 class ReservationAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'reservation_date', 'guests')  
-    search_fields = ('first_name', 'last_name', 'email', 'phone')  
-    list_filter = ('reservation_date',) 
-    ordering = ('reservation_date',) 
-    date_hierarchy = 'reservation_date' 
+    # Fields to display in the list view of the admin
+    list_display = ('user', 'reservation_date', 'reservation_time', 'guest_count', 'email')  
+    
+    # Searchable fields in the admin interface
+    search_fields = ('user__username', 'user__email', 'email', 'reservation_date', 'reservation_time')  
+    
+    # Filters to make it easier to narrow down the results
+    list_filter = ('reservation_date', 'reservation_time')  
+    
+    # Default ordering of the reservations by reservation date
+    ordering = ('reservation_date',)  
+    
+    # Allows quick filtering by date in the admin interface
+    date_hierarchy = 'reservation_date'  
 
 
 # Register the MenuItem model

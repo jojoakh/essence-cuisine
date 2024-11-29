@@ -3,79 +3,70 @@
 
 {% block content %}
 <div class="form-wrapper">
-<div class="form-container">
-<h2 class="mb-4">Reserve a Table</h2>
-<form method="post" action="{% url 'make_reservation' %}">
-    {% csrf_token %}
-    <div class="mb-3">
-        <label for="reservation-date" class="form-label">Select Date</label>
-        <input type="date" id="reservation-date" name="reservation_date" class="form-control" 
-        required min="{{ today_date|date:'Y-m-d' }}" value="{{ today_date|date:'Y-m-d' }}">
- 
-    </div>
-    <div class="mb-3">
-        <label for="time-slot" class="form-label">Select Time</label>
-        <select id="time-slot" name="reservation_time" class="form-select" required>
-            <option value="11:00">11:00 AM</option>
-            <option value="11:30">11:30 AM</option>
-            <option value="12:00">12:00 PM</option>
-            <option value="12:30">12:30 PM</option>
-            <option value="13:00">01:00 PM</option>
-            <option value="13:30">01:30 PM</option>
-            <option value="14:00">02:00 PM</option>
-            <option value="14:30">02:30 PM</option>
-            <option value="15:00">03:00 PM</option>
-            <option value="15:30">03:30 PM</option>
-            <option value="16:00">04:00 PM</option>
-            <option value="16:30">04:30 PM</option>
-            <option value="17:00">05:00 PM</option>
-            <option value="17:30">05:30 PM</option>
-            <option value="18:00">06:00 PM</option>
-            <option value="18:30">06:30 PM</option>
-            <option value="19:00">07:00 PM</option>
-            <option value="19:30">07:30 PM</option>
-            <option value="20:00">08:00 PM</option>
-            <option value="20:30">08:30 PM</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label for="guests" class="form-label">Number of Guests</label>
-        <select id="guests" name="guests" class="form-select" required>
-            {% for i in guest_numbers %}
-                <option value="{{ i }}">
-                    {{ i }}
-                    {% if i == 1 %} 
-                        guest
-                    {% else %}
-                        guests
-                    {% endif %}
-                </option>
-            {% endfor %}
-        </select>
-    </div>
-   
-    <div class="mb-3">
-        <label for="first_name" class="form-label">First Name</label>
-        <input type="text" id="first_name" name="first_name" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label for="last_name" class="form-label">Last Name</label>
-        <input type="text" id="last_name" name="last_name" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" id="email" name="email" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label for="phone" class="form-label">Phone</label>
-        <input type="tel" id="phone" name="phone" class="form-control" required>
-    </div>
-    <div class="d-flex justify-content-center">
-        <button type="submit" class="btn btn-primary">Submit Booking</button>
-    </div>
-    
-</form>
-</div>
-</div>
+    <div class="form-container">
+        <h2 class="mb-4">Reserve a Table</h2>
+        <form method="post" action="{% url 'make_reservation' %}">
+            {% csrf_token %}
 
+            <!-- Hidden inputs to store values -->
+            <input type="hidden" id="guests-hidden" name="guests" value="">
+            <input type="hidden" id="date-hidden" name="reservation_date" value="">
+            <input type="hidden" id="time-hidden" name="reservation_time" value="">
+
+            <!-- Step 1: Select Number of Guests -->
+            <div id="step-guests">
+                <h3>Select Guests</h3>
+                {% for i in guest_numbers %}
+                    <button type="button" class="guest-btn" data-guests="{{ i }}">
+                        {{ i }} Guest{% if i > 1 %}s{% endif %}
+                    </button>
+                {% endfor %}
+            </div>
+
+            <!-- Step 2: Select Date -->
+            <div id="step-date" class="hidden">
+                <h3>Select Date</h3>
+                <input type="date" id="reservation-date" name="reservation_date" class="form-control" required
+                    min="{{ today_date|date:'Y-m-d' }}" value="{{ today_date|date:'Y-m-d' }}">
+                <button type="button" id="next-to-time" class="btn btn-primary">Next</button>
+            </div>
+
+            <!-- Step 3: Select Time -->
+            <div id="step-time" class="hidden">
+                <h3>Select Time</h3>
+                <div id="time-slots">
+                    <!-- Time slots will be dynamically inserted here -->
+                </div>
+            </div>
+
+            <!-- Step 4: Enter Personal Details -->
+            <div id="step-details" class="hidden">
+                <h3>Your Details</h3>
+                <div class="mb-3">
+                    <label for="first_name" class="form-label">First Name</label>
+                    <input type="text" id="first_name" name="first_name" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input type="text" id="last_name" name="last_name" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone</label>
+                    <input type="tel" id="phone" name="phone" class="form-control" required>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary">Submit Booking</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/form.js' %}"></script>
 {% endblock %}

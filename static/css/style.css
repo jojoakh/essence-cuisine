@@ -122,6 +122,17 @@ body {
     color: #ffffff;
 }
 
+.hidden {
+    display: none;
+}
+.reservation-step {
+    margin-bottom: 20px;
+}
+.guest-btn {
+    margin: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
 
 
 

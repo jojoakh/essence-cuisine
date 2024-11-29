@@ -3,12 +3,16 @@
 <div class="form-wrapper">
     <div class="form-container">
         <h2 class="mb-4">Cancel Your Reservation</h2>
+
         <form method="post" action="{% url 'cancel_reservation' %}">
             {% csrf_token %}
+            
+            <!-- Step 1: Enter email -->
             <div class="mb-3">
                 <label for="email" class="form-label">Email Address</label>
                 <input type="email" id="email" name="email" class="form-control" required>
             </div>
+            
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-danger">Search Reservation</button>
             </div>

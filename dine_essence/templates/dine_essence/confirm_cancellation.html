@@ -3,22 +3,27 @@
 <div class="form-wrapper">
     <div class="form-container">
         <h2 class="mb-4">Confirm Cancellation</h2>
-        <p>Are you sure you want to cancel the following reservation?</p>
-        <ul>
-            <li><strong>Name:</strong> {{ reservation.first_name }} {{ reservation.last_name }}</li>
-            <li><strong>Date:</strong> {{ reservation.reservation_date }}</li>
-            <li><strong>Time:</strong> {{ reservation.reservation_time }}</li>
-            <li><strong>Guests:</strong> {{ reservation.guests }}</li>
-        </ul>
+
+        <p>Are you sure you want to cancel your reservation?</p>
+        <p><strong>Reservation Details:</strong></p>
+        <p><strong>Email:</strong> {{ reservation.email }}</p>
+        <p><strong>Guests:</strong> {{ reservation.guests }}</p>
+        <p><strong>Date:</strong> {{ reservation.reservation_date }}</p>
+        <p><strong>Time:</strong> {{ reservation.reservation_time }}</p>
+
         <form method="post" action="{% url 'cancel_reservation' %}">
             {% csrf_token %}
             <input type="hidden" name="email" value="{{ email }}">
             <input type="hidden" name="confirm" value="yes">
+            
             <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-danger">Yes, Cancel Reservation</button>
-                <a href="{% url 'index' %}" class="btn btn-secondary ms-3">No, Keep Reservation</a>
             </div>
         </form>
+
+        <div class="d-flex justify-content-center mt-3">
+            <a href="{% url 'cancel_reservation' %}" class="btn btn-secondary">No, Go Back</a>
+        </div>
     </div>
 </div>
 {% endblock %}

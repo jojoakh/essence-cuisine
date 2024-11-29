@@ -31,6 +31,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Step 2: Handle Date Selection
     if (dateInput) {
+        // Set the minimum selectable date to today (allow selecting today)
+        const today = new Date().toISOString().split('T')[0]; // Get today's date in 'YYYY-MM-DD' format
+        dateInput.setAttribute("min", today); // Allows selecting today
+
+        // Initially set the value to an empty string so that no date appears
+        dateInput.value = "";
+
         dateInput.addEventListener("change", () => {
             selectedDate = dateInput.value;
             document.querySelector("#date-hidden").value = selectedDate;

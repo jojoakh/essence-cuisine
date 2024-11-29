@@ -134,6 +134,10 @@ body {
     cursor: pointer;
 }
 
+footer a:hover {
+    color: #f9c74f; 
+    text-decoration: none; 
+}
 
 
 /* Responsive Design */

@@ -11,6 +11,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+
 </head>
 
 <body>
@@ -60,26 +63,46 @@
         {% endif %}
 
         {% if form.errors %}
-    <div class="alert alert-danger">
-        <ul>
-            {% for field, errors in form.errors.items %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for field, errors in form.errors.items %}
                 {% for error in errors %}
-                    <li>{{ field }}: {{ error }}</li>
+                <li>{{ field }}: {{ error }}</li>
                 {% endfor %}
-            {% endfor %}
-        </ul>
-    </div>
-{% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
 
 
         {% block content %}
         {% endblock %}
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-3">
-        <p>&copy; 2024 Essence Cuisine. All rights reserved.</p>
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <p class="mb-3">&copy; 2024 Essence Cuisine. All rights reserved.</p>
+            <div class="d-flex justify-content-center gap-4">
+                <a href="https://www.facebook.com/" target="_blank" rel="noopener"
+                    aria-label="Visit our Facebook page (opens in a new tab)" class="text-white fs-4">
+                    <i class="fa-brands fa-square-facebook"></i>
+                </a>
+                <a href="https://www.tiktok.com/" target="_blank" rel="noopener"
+                    aria-label="Visit our TikTok profile (opens in a new tab)" class="text-white fs-4">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener"
+                    aria-label="Visit our Instagram profile (opens in a new tab)" class="text-white fs-4">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://www.twitter.com/" target="_blank" rel="noopener"
+                    aria-label="Visit our Twitter profile (opens in a new tab)" class="text-white fs-4">
+                    <i class="fa-brands fa-twitter"></i>
+                </a>
+            </div>
+        </div>
     </footer>
+
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>

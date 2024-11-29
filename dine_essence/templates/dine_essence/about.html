@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static %} 
 
 {% block content %}
 
     
-    <div class="image-background-container position-relative d-flex align-items-center justify-content-center" style="height: 50vh;">
+    <div class="image-background-container position-relative d-flex align-items-center justify-content-center" style="height: 80vh;">
        
         <img src="{% static 'images/top-about-image.jpg' %}" alt="woman eating spaghetti" class="img-fluid w-100 h-100" style="object-fit: cover;">
         
@@ -46,4 +46,58 @@
         </div>
     </div>
 </section>
+
+<!-- Opening Hours Section -->
+<div class="container mt-5">
+    <div class="row">
+        <div class="col text-center">
+            <h2 class="display-5 fw-bold">Opening Hours</h2>
+            <p class="fs-4 mt-3">
+                At Essence Cuisine, we’re open every day to bring you the finest dining experience. Our doors are open at the following times:
+            </p>
+        </div>
+    </div>
+    <div class="row mt-4 justify-content-center">
+        <div class="col-md-6">
+            <table class="table table-bordered table-striped text-center">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Day</th>
+                        <th>Opening Hours</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Monday</td>
+                        <td>11:00 AM - 10:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td>Tuesday</td>
+                        <td>11:00 AM - 10:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td>Wednesday</td>
+                        <td>11:00 AM - 10:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td>Thursday</td>
+                        <td>11:00 AM - 10:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td>Friday</td>
+                        <td>11:00 AM - 10:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td>Saturday</td>
+                        <td>11:00 AM - 10:00 PM</td>
+                    </tr>
+                    <tr>
+                        <td>Sunday</td>
+                        <td>11:00 PM - 10:00 PM</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}

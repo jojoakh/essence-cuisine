@@ -14,7 +14,7 @@ class TableAdmin(admin.ModelAdmin):
 @admin.register(Reservation)
 class ReservationAdmin(admin.ModelAdmin):
     # Fields to display in the list view of the admin
-    list_display = ('user', 'reservation_date', 'reservation_time', 'guest_count', 'email')  
+    list_display = ('user', 'reservation_date', 'reservation_time', 'guest_count', 'email','first_name', 'last_name','phone')  
     
     # Searchable fields in the admin interface
     search_fields = ('user__username', 'user__email', 'email', 'reservation_date', 'reservation_time')  

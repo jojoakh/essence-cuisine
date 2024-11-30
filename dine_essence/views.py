@@ -49,14 +49,38 @@ def make_reservation(request):
     if request.method == 'POST':
         form = ReservationForm(request.POST)
         if form.is_valid():
+            # Save reservation data
             reservation = form.save(commit=False)
             reservation.user = request.user
             reservation.save()
             messages.success(request, "Reservation successfully created!")
             return redirect('reservation_confirmation', reservation_id=reservation.id)
     else:
-        form = ReservationForm()
+        # Check if a reservation is in progress
+        if 'guests' not in request.session:
+            # Start the reservation process if not already initiated
+            guest_numbers = range(1, 11)  # Adjust range as needed
+            today_date = date.today()
+            return render(request, 'dine_essence/make_reservation.html', {
+                'guest_numbers': guest_numbers,
+                'today_date': today_date,
+            })
+
+        # If already in progress, populate form with session data
+        initial_data = {
+            'guests': request.session.get('guests'),
+            'reservation_date': request.session.get('reservation_date'),
+            'reservation_time': request.session.get('reservation_time'),
+        }
+        form = ReservationForm(initial=initial_data)
+
     return render(request, 'dine_essence/make_reservation.html', {'form': form})
+
+
+@login_required
+def reservation_confirmation(request, reservation_id):
+    reservation = get_object_or_404(Reservation, id=reservation_id, user=request.user)
+    return render(request, 'dine_essence/confirmation.html', {'reservation': reservation})
 
 
 @login_required
@@ -122,29 +146,21 @@ def check_availability(request):
 
     return JsonResponse({"slots": slots})
     
-def reservation_confirmation(request, reservation_id):
-    reservation = get_object_or_404(Reservation, id=reservation_id)
-    return render(request, 'dine_essence/confirmation.html', {'reservation': reservation})
 
 @login_required
-def cancel_reservation(request):
-    # Fetch user's reservations
-    user_reservations = Reservation.objects.filter(user=request.user)
+def cancel_reservation(request, reservation_id):
+    # Fetch user's reservation
+    reservation = get_object_or_404(Reservation, id=reservation_id, user=request.user)
 
     if request.method == 'POST':
-        # Get the reservation ID from the form
-        reservation_id = request.POST.get('reservation_id')
-
-        # Ensure the reservation exists and belongs to the logged-in user
-        reservation = get_object_or_404(user_reservations, id=reservation_id)
-
         # Delete the reservation
         reservation.delete()
         messages.success(request, "Your reservation has been successfully canceled.")
-        return redirect('index')
+        return redirect('dashboard')
 
-    # Render the cancellation form with user's reservations
-    return render(request, 'dine_essence/cancel_reservation.html', {'reservations': user_reservations})
+    # Render the cancellation confirmation page
+    return render(request, 'dine_essence/cancel_reservation.html', {'reservation': reservation})
+
 
     
 def menu_view(request):

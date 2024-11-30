@@ -9,7 +9,7 @@
             {% csrf_token %}
 
             <!-- Hidden inputs to store values -->
-            <input type="hidden" id="guests-hidden" name="guests" value="">
+            <input type="hidden" id="guests-hidden" name="guest_count" value="">
             <input type="hidden" id="date-hidden" name="reservation_date" value="">
             <input type="hidden" id="time-hidden" name="reservation_time" value="">
 
@@ -67,6 +67,6 @@
 </div>
 {% endblock %}
 
-{% block js %}
-<script src="{% static 'js/form.js' %}"></script>
+{% block js %}z
+<script src="{% static 'js/reservation.js' %}"></script>
 {% endblock %}

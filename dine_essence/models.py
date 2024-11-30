@@ -13,10 +13,13 @@ class Table(models.Model):
 
 class Reservation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)  # Associate reservation with a user
+    first_name = models.CharField(max_length=100, default="")
+    last_name = models.CharField(max_length=100,  default="")
     reservation_date = models.DateField()
     reservation_time = models.TimeField()
     guest_count = models.PositiveIntegerField()
     email = models.EmailField()
+    phone = models.CharField(max_length=15, default="")
    
     def __str__(self):
         return f"{self.reservation_date} at {self.reservation_time} for {self.guest_count} guests"

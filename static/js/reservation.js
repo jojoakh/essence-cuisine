@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
         details: document.querySelector("#step-details"),
     };
 
+    const makeReservationButton = document.querySelector("#make-reservation-btn");
     const guestButtons = document.querySelectorAll(".guest-btn");
     const dateInput = document.querySelector("#reservation-date");
     const timeSlotsContainer = document.querySelector("#time-slots");
@@ -15,6 +16,39 @@ document.addEventListener("DOMContentLoaded", () => {
     let selectedGuests = null;
     let selectedDate = null;
     let selectedTime = null;
+
+    // Step 0: Reset and start the reservation flow
+    const startReservationProcess = () => {
+        // Reset previous selections
+        selectedGuests = null;
+        selectedDate = null;
+        selectedTime = null;
+
+        document.querySelector("#guests-hidden").value = "";
+        document.querySelector("#date-hidden").value = "";
+        document.querySelector("#time-hidden").value = "";
+
+        // Show the guests step and hide others
+        Object.values(steps).forEach((step) => step.classList.add("hidden"));
+        steps.guests.classList.remove("hidden");
+    };
+
+    // Handle "Make a Reservation" button click
+    if (makeReservationButton) {
+        makeReservationButton.addEventListener("click", (e) => {
+            e.preventDefault();
+
+            // Check if the user is logged in
+            const isLoggedIn = document.body.dataset.loggedIn === "true";
+            if (!isLoggedIn) {
+                // Redirect to the login page with a return URL to resume the reservation
+                window.location.href = "/login?next=/make-reservation";
+            } else {
+                // Start the reservation process
+                startReservationProcess();
+            }
+        });
+    }
 
     // Step 1: Handle Guest Selection
     if (guestButtons.length > 0) {
@@ -31,12 +65,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Step 2: Handle Date Selection
     if (dateInput) {
-        // Set the minimum selectable date to today (allow selecting today)
-        const today = new Date().toISOString().split('T')[0]; // Get today's date in 'YYYY-MM-DD' format
-        dateInput.setAttribute("min", today); // Allows selecting today
-
-        // Initially set the value to an empty string so that no date appears
-        dateInput.value = "";
+        // Set the minimum selectable date to today
+        const today = new Date().toISOString().split('T')[0]; // 'YYYY-MM-DD'
+        dateInput.setAttribute("min", today); // Set the minimum date
+        dateInput.value = ""; // Clear any pre-set value
 
         dateInput.addEventListener("change", () => {
             selectedDate = dateInput.value;
@@ -53,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
         steps.time.classList.remove("hidden");
         loadTimeSlots(selectedDate);
     });
-    
+
     // Step 3: Load Time Slots
     const loadTimeSlots = (date) => {
         fetch(`/check-availability?date=${date}&guests=${selectedGuests}`)

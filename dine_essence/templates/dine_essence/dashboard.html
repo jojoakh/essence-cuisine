@@ -12,15 +12,21 @@
     {% if reservations %}
         <ul class="list-group">
             {% for reservation in reservations %}
-                <li class="list-group-item">
-                    <strong>Date:</strong> {{ reservation.reservation_date }} |
-                    <strong>Time:</strong> {{ reservation.reservation_time }} |
-                    <strong>Guests:</strong> {{ reservation.guest_count }}
-                    <div class="float-end">
-                        <a href="{% url 'edit_reservation' reservation.id %}" class="btn btn-warning btn-sm">Edit</a>
-                    </div>
-                </li>
-            {% endfor %}
+            <li class="list-group-item">
+                <strong>Name:</strong> {{ reservation.first_name }} {{ reservation.last_name }}<br>
+                <strong>Email:</strong> {{ reservation.email }}<br>
+                <strong>Phone:</strong> {{ reservation.phone }}<br>
+                <strong>Date:</strong> {{ reservation.reservation_date }}<br>
+                <strong>Time:</strong> {{ reservation.reservation_time }}<br>
+                <strong>Guests:</strong> {{ reservation.guest_count }}<br>
+                
+                <div class="float-end">
+                    <a href="{% url 'edit_reservation' reservation.id %}" class="btn btn-primary">Edit Reservation</a>
+                    <a href="{% url 'cancel_reservation' reservation.id %}" class="btn btn-danger">Cancel Reservation</a>
+                </div>
+            </li>
+        {% endfor %}
+        
         </ul>
     {% else %}
         <p>You have no reservations yet. Click "Make a Reservation" to get started.</p>

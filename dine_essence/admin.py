@@ -1,20 +1,14 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
-from .models import Table, Reservation
+from .models import Reservation
 from .models import MenuItem
 
-# Register the Table model
-@admin.register(Table)
-class TableAdmin(admin.ModelAdmin):
-    list_display = ('number', 'seats')  
-    search_fields = ('number',)  
-    ordering = ('number',)  
 
 # Register the Reservation model
 @admin.register(Reservation)
 class ReservationAdmin(admin.ModelAdmin):
     # Fields to display in the list view of the admin
-    list_display = ('user', 'reservation_date', 'reservation_time', 'guest_count', 'email','first_name', 'last_name','phone')  
+    list_display = ('user', 'reservation_date', 'reservation_time', 'guest_count', 'email','phone')  
     
     # Searchable fields in the admin interface
     search_fields = ('user__username', 'user__email', 'email', 'reservation_date', 'reservation_time')  

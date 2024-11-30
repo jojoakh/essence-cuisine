@@ -7,8 +7,10 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.utils.dateparse import parse_date
+from django.utils.timezone import now
 from datetime import datetime
 from .forms import ReservationForm
+from .forms import EditReservationForm
 from .models import Reservation
 from .models import MenuItem
 from datetime import date
@@ -51,7 +53,7 @@ def make_reservation(request):
         if form.is_valid():
             # Save reservation data
             reservation = form.save(commit=False)
-            reservation.user = request.user
+            reservation.user = request.user  # Associate with the logged-in user
             reservation.save()
             messages.success(request, "Reservation successfully created!")
             return redirect('reservation_confirmation', reservation_id=reservation.id)
@@ -68,7 +70,7 @@ def make_reservation(request):
 
         # If already in progress, populate form with session data
         initial_data = {
-            'guests': request.session.get('guests'),
+            'guest_count': request.session.get('guests'),
             'reservation_date': request.session.get('reservation_date'),
             'reservation_time': request.session.get('reservation_time'),
         }
@@ -85,17 +87,23 @@ def reservation_confirmation(request, reservation_id):
 
 @login_required
 def edit_reservation(request, reservation_id):
-    reservation = get_object_or_404(Reservation, id=reservation_id, user=request.user)
+    reservation = get_object_or_404(Reservation, id=reservation_id, user=request.user)  # Check if user owns reservation
+    today = date.today()
+
     if request.method == "POST":
         form = ReservationForm(request.POST, instance=reservation)
         if form.is_valid():
             form.save()
-            return redirect('dashboard')  # Redirect back to the dashboard
+            messages.success(request, "Reservation updated successfully!")
+            return redirect('dashboard')
     else:
         form = ReservationForm(instance=reservation)
 
-    return render(request, 'dine_essence/edit_reservation.html', {'form': form})
-
+    return render(request, 'dine_essence/edit_reservation.html', {
+        'form': form,
+        'reservation': reservation,
+        'today': today,
+    })
 
 def check_availability(request):
     # Get the date and number of guests from the request

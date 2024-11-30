@@ -1,14 +1,49 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<div class="container mt-5">
-    <h2>Edit Reservation</h2>
-    <form method="post">
+<div class="container mt-4">
+    <h1>Edit Reservation</h1>
+    <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Save Changes</button>
-        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
         
+        <!-- Reservation Date -->
+        <div class="form-group">
+            <label for="{{ form.reservation_date.id_for_label }}">Reservation Date</label>
+            <!-- This should generate an input with id="reservation-date" -->
+            {{ form.reservation_date }}
+            {% for error in form.reservation_date.errors %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+        
+
+        <!-- Reservation Time -->
+        <div class="form-group mt-3">
+            <label for="{{ form.reservation_time.id_for_label }}">Reservation Time</label>
+            <input type="hidden" id="reservation-time" name="reservation_time">
+            <div>
+                <h3>Select Time</h3>
+                <div id="time-slots">
+                    <!-- Time slots will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Guest Count -->
+        <div class="form-group mt-3">
+            <label for="{{ form.guest_count.id_for_label }}">Guest Count</label>
+            {{ form.guest_count }}
+            {% for error in form.guest_count.errors %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% endfor %}
+        </div>
+        
+        <button type="submit" class="btn btn-primary mt-3">Update Reservation</button>
     </form>
 </div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'js/edit.js' %}"></script>
 {% endblock %}

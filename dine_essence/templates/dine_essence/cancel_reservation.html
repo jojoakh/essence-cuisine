@@ -8,6 +8,7 @@
         {% if reservation %}
             <p>Are you sure you want to cancel your reservation?</p>
             <p><strong>Reservation Details:</strong></p>
+            <p><strong>Username:</strong> {{ reservation.user.username }}</p>
             <p><strong>Email:</strong> {{ reservation.email }}</p>
             <p><strong>Guests:</strong> {{ reservation.guest_count }}</p>
             <p><strong>Date:</strong> {{ reservation.reservation_date }}</p>

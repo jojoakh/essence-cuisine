@@ -13,7 +13,7 @@
         <ul class="list-group">
             {% for reservation in reservations %}
             <li class="list-group-item">
-                <strong>Name:</strong> {{ reservation.first_name }} {{ reservation.last_name }}<br>
+                <strong>Username:</strong> {{ reservation.user.username }}<br>
                 <strong>Email:</strong> {{ reservation.email }}<br>
                 <strong>Phone:</strong> {{ reservation.phone }}<br>
                 <strong>Date:</strong> {{ reservation.reservation_date }}<br>

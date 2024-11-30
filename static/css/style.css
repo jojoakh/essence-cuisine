@@ -1,11 +1,21 @@
+/* Import Google Fonts */
+
+
+/* Global Styles */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    background: #ffffff;
+    background-color: #f4f4f4;
+    color: #333;
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
+/* Form Wrapper and Container */
 .form-wrapper {
     display: flex;
     justify-content: center;  
@@ -16,7 +26,7 @@ body {
 
 .form-container {
     padding: 20px;
-    border-radius: 10px; /* Optional: rounded corners */
+    border-radius: 10px; 
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
     width: 100%;
     max-width: 600px;
@@ -24,10 +34,15 @@ body {
     height: fit-content;
 }
 
+/* Hero Section */
 .hero {
     height: 30vh;
     overflow: hidden;
     position: relative;
+}
+
+.hero p {
+    color: #ffffff;
 }
 
 .hero img {
@@ -49,51 +64,32 @@ body {
     color: #000; 
 }
 
-/* About Page Section */
-
-.image-background-container {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    
-}
-
-.image-background-container-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2; 
-    color: #ffffff;
-}
-
+/* About Page Styling */
 .about-page {
     background-color: #f8f9fa; 
     color: #333; 
     padding: 2rem 0;
-    
 }
 
 .about-page h2 {
     font-family: 'Montserrat', sans-serif; 
-    font-size: 2.5rem; /* Make the heading slightly larger for prominence */
+    font-size: 2.5rem;
     font-weight: 700;
-    margin-bottom: 1.5rem; /* Increase spacing below the heading */
+    margin-bottom: 1.5rem;
     color: #333; 
     text-align: left; 
 }
 
 .about-page p {
     font-family: 'Montserrat', sans-serif;
-    font-size: 1.0rem; /* Adjust font size for readability */
-    line-height: 1.8; /* Increase line height for better spacing */
-    margin-bottom: 1.5rem; /* Add more space between paragraphs */
+    font-size: 1.0rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
     color: #555; 
     text-align: justify;
 }
 
 .about-page img {
-   
     width: 100%; 
     max-width: 450px; 
     margin: 0 auto; 
@@ -102,32 +98,20 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
+/* Utility Classes */
 .align-items-center {
     align-items: center !important;
-}
-
-.image-background-container {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    
-}
-
-.image-background-container-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2; 
-    color: #ffffff;
 }
 
 .hidden {
     display: none;
 }
+
+/* Reservation Steps and Button Styling */
 .reservation-step {
     margin-bottom: 20px;
 }
+
 .guest-btn {
     margin: 5px;
     padding: 10px 20px;
@@ -139,20 +123,132 @@ footer a:hover {
     text-decoration: none; 
 }
 
+/* Welcome Header Styling */
+h2 {
+    font-size: 2rem;
+    color: #333;
+}
 
-/* Responsive Design */
+.mt-4 {
+    margin-top: 1.5rem;
+}
+
+.mt-5 {
+    margin-top: 3rem;
+}
+
+/* Reservation List Styling */
+.reservation-list {
+    list-style-type: none;  
+    padding: 0;            
+    margin: 0;              
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+}
+
+.reservation-list li {
+    background-color: #f8f9fa;
+    margin-bottom: 10px;
+    width: 100%;            
+    max-width: 600px;       
+    text-align: left;      
+}
+
+/* List Group Styling for Reservations */
+ul.list-group {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul.list-group .list-group-item {
+    background-color: #ffffff;
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Text Style for Reservation Items */
+ul.list-group .list-group-item strong {
+    font-weight: bold;
+}
+
+/* Buttons Styling */
+a.btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+a.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+a.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+a.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+a.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Float Right for Buttons inside Reservation Items */
+.float-end {
+    display: flex;
+    gap: 10px;
+}
+
+/* Empty State Message Styling */
+p {
+    font-size: 1.2rem;
+    color: #666;
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* Responsive Design for Smaller Screens */
 @media (max-width: 768px) {
     .about-page h2 {
-        font-size: 2rem; /* Adjust heading size for smaller screens */
+        font-size: 2rem;
     }
 
     .about-page p {
-        font-size: 1rem; /* Adjust paragraph size for smaller screens */
+        font-size: 1rem;
         line-height: 1.6;
     }
 
     .about-page img {
-        max-width: 100%; /* Ensure the image resizes for mobile */
+        max-width: 100%;
     }
 }
 
+/* Container Styling */
+.container {
+    padding: 15px;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+ul.list-group .list-group-item {
+    padding: 15px;
+}
+
+.float-end {
+    flex-direction: column;
+    align-items: flex-start;
+}

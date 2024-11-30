@@ -3,12 +3,12 @@
 
 
 {% block content %}
-
+<div class="reservation-list">
 <h1>Reservation Confirmation</h1>
 <p>Thank you for your reservation!</p>
 <p>Here are the details of your reservation:</p>
-<ul>
-    <li><strong>Name:</strong> {{ reservation.first_name }} {{ reservation.last_name }}</li>
+<ul class="reservation-list">
+    <li><strong>Username:</strong> {{ reservation.user.username }}</li>
     <li><strong>Email:</strong> {{ reservation.email }}</li>
     <li><strong>Phone:</strong> {{ reservation.phone }}</li>
     <li><strong>Guests:</strong> {{ reservation.guest_count }}</li>
@@ -16,4 +16,5 @@
     <li><strong>Reservation Time:</strong> {{ reservation.reservation_time }}</li>
 </ul>
 <a href="/" class="btn btn-primary">Back to Home</a>
+</div>
 {% endblock %}

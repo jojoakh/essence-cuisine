@@ -38,6 +38,13 @@ def signup_view(request):
 
 
 @login_required
+def user_dashboard(request):
+    # Get all reservations for the logged-in user
+    user_reservations = Reservation.objects.filter(user=request.user)
+    return render(request, 'dine_essence/dashboard.html', {'reservations': user_reservations})
+
+
+@login_required
 def make_reservation(request):
     if request.method == 'POST':
         form = ReservationForm(request.POST)
@@ -53,23 +60,19 @@ def make_reservation(request):
 
 
 @login_required
-def update_reservation(request, reservation_id):
-    reservation = get_object_or_404(Reservation, id=reservation_id, email=request.user.email)
-
-    if request.method == 'POST':
+def edit_reservation(request, reservation_id):
+    reservation = get_object_or_404(Reservation, id=reservation_id, user=request.user)
+    if request.method == "POST":
         form = ReservationForm(request.POST, instance=reservation)
         if form.is_valid():
             form.save()
-            messages.success(request, "Your reservation was successfully updated.")
-            return redirect('reservation_confirmation', reservation_id=reservation.id)
-        else:
-            messages.error(request, "There was an error updating your reservation.")
+            return redirect('dashboard')  # Redirect back to the dashboard
     else:
         form = ReservationForm(instance=reservation)
 
-    return render(request, 'dine_essence/update_reservation.html', {'form': form, 'reservation': reservation})
+    return render(request, 'dine_essence/edit_reservation.html', {'form': form})
 
-    
+
 def check_availability(request):
     # Get the date and number of guests from the request
     date = request.GET.get("date")

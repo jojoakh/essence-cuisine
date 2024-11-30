@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Welcome, {{ user.username }}</h2>
+
+    <div class="mt-4">
+        <a href="{% url 'make_reservation' %}" class="btn btn-primary">Make a Reservation</a>
+    </div>
+
+    <h3 class="mt-5">My Reservations</h3>
+    {% if reservations %}
+        <ul class="list-group">
+            {% for reservation in reservations %}
+                <li class="list-group-item">
+                    <strong>Date:</strong> {{ reservation.reservation_date }} |
+                    <strong>Time:</strong> {{ reservation.reservation_time }} |
+                    <strong>Guests:</strong> {{ reservation.guest_count }}
+                    <div class="float-end">
+                        <a href="{% url 'edit_reservation' reservation.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have no reservations yet. Click "Make a Reservation" to get started.</p>
+    {% endif %}
+</div>
+{% endblock %}

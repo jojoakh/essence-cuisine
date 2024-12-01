@@ -55,3 +55,12 @@ I've tested my deployed project on multiple browsers to check for compatibility 
 | Opera | ![screenshot](documentation/homepage-opera.png) | ![screenshot](documentation/aboutpage-opera.png) | ![screenshot](documentation/booking-page-opera.png) | ![screenshot](documentation/menu-page-opera.png)  | ![screenshot](documentation/menu-page-opera.png) | Works as expected |
 | Edge | ![screenshot](documentation/homepage-edge.png) | ![screenshot](documentation/aboutpage-edge.png) | ![screenshot](documentation/booking-page-edge.png) | ![screenshot](documentation/menu-page-edge.png)  | ![screenshot](documentation/menu-page-edge.png) | Works as expected |
 
+## Lighthouse Audit
+
+I've tested my deployed project using the Lighthouse Audit tool to check for any major issues.
+
+| Page | Mobile | Desktop | Notes |
+| --- | --- | --- | --- |
+| Home | ![screenshot](documentation/lighthouse-mobile-home.png) | ![screenshot](documentation/lighthouse-desktop-home.png) | Slow response time due to large images and some warnings |
+| Booking | ![screenshot](documentation/lighthouse-desktop-booking.png) | ![screenshot](documentation/lighthouse-desktop-booking.png) | some warnings |
+

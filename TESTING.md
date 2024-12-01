@@ -9,7 +9,7 @@
 
 I have used the recommended [HTML W3C Validator](https://validator.w3.org) to validate all of my HTML files.
 
-| Page | screenshot | Notes |                                                                                                 |
+| File | screenshot | Notes |                                                                                                 |
 | --- | --- | --- | ----------------------------------------------------------------------------------------------------------|
 | Home | ![screenshot](documentation/html-homepage-validation.png) | Pass: No Errors |
 | Login | ![screenshot](documentation/html-loginpage-validation.png) | Pass: No Errors |
@@ -29,7 +29,7 @@ I have used the recommended [CSS Jigsaw Validator](https://jigsaw.w3.org/css-val
 
 I have used the recommended [JShint Validator](https://jshint.com) to validate all of my JS files.
 
-| Page | screenshot | Notes |                                                                                                 |
+| File | screenshot | Notes |                                                                                                 |
 | --- | --- | --- | ----------------------------------------------------------------------------------------------------------|
 | Reservation.js  | ![screenshot](documentation/js-reservation-validation.png) |  Pass: No Errors |
 
@@ -37,6 +37,21 @@ I have used the recommended [JShint Validator](https://jshint.com) to validate a
 
 I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com) to validate all of my Python files.
 
-| Page | screenshot | Notes |                                                                                                 |
+| File | screenshot | Notes |                                                                                                 |
 | --- | --- | --- | ----------------------------------------------------------------------------------------------------------|
-| Admin  | ![screenshot](documentation/python-admin-validation.png) |  Pass: No Errors |
+| admin.py  | ![screenshot](documentation/python-admin-validation.png) |  Pass: No Errors |
+| model.py  | ![screenshot](documentation/python-model-validation.png) |  Pass: No Errors |
+| views.py  | ![screenshot](documentation/python-views-validation.png) |  Pass: No Errors |
+| urls.py   | ![screenshot](documentation/python-url-validation.png)   |  Pass: No Errors |
+| forms.py  | ![screenshot](documentation/python-forms-validation.png) |  Pass: No Errors |
+
+## Browser Compatibility
+
+I've tested my deployed project on multiple browsers to check for compatibility issues.
+
+| Browser | Home | About | Booking | Menu | Account | Notes |
+| --- | --- | --- | --- | --- | --- | --- |
+| Chrome | ![screenshot](documentation/homepage-desktop.png) | ![screenshot](documentation/aboutpage-chrome.png) | ![screenshot](documentation/booking-page-chrome.png) | ![screenshot](documentation/menu-page-chrome.png)  | ![screenshot](documentation/menu-page-chrome.png) | Works as expected |
+| Opera | ![screenshot](documentation/homepage-opera.png) | ![screenshot](documentation/aboutpage-opera.png) | ![screenshot](documentation/booking-page-opera.png) | ![screenshot](documentation/menu-page-opera.png)  | ![screenshot](documentation/menu-page-opera.png) | Works as expected |
+| Edge | ![screenshot](documentation/homepage-edge.png) | ![screenshot](documentation/aboutpage-edge.png) | ![screenshot](documentation/booking-page-edge.png) | ![screenshot](documentation/menu-page-edge.png)  | ![screenshot](documentation/menu-page-edge.png) | Works as expected |
+

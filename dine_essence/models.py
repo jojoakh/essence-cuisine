@@ -2,17 +2,20 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import time
 
+
 # Create your models here.
 class Reservation(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Associate reservation with a user
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     reservation_date = models.DateField()
     reservation_time = models.TimeField()
     guest_count = models.PositiveIntegerField()
     email = models.EmailField()
     phone = models.CharField(max_length=15, default="")
-   
+
     def __str__(self):
-        return f"{self.reservation_date} at {self.reservation_time} for {self.guest_count} guests"
+        return (f"{self.reservation_date} "
+                f"at {self.reservation_time} "
+                f"for {self.guest_count} guests")
 
 
 class MenuItem(models.Model):
@@ -21,7 +24,7 @@ class MenuItem(models.Model):
         ('main', 'Main Course'),
         ('dessert', 'Dessert'),
     ]
-    
+
     name = models.CharField(max_length=255)
     category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
     description = models.TextField()
@@ -34,4 +37,3 @@ class MenuItem(models.Model):
 
     def __str__(self):
         return self.name
-

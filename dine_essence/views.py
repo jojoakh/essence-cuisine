@@ -30,10 +30,12 @@ def signup_view(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Account created successfully! You can now log in.")
+            messages.success
+            (request, "Account created successfully! You can now log in.")
             return redirect('login')
         else:
-            messages.error(request, "Error creating account. Please check the form.")
+            messages.error
+            (request, "Error creating account. Please check the form.")
     else:
         form = UserCreationForm()
     return render(request, 'dine_essence/signup.html', {'form': form})
@@ -43,7 +45,11 @@ def signup_view(request):
 def user_dashboard(request):
     # Get all reservations for the logged-in user
     user_reservations = Reservation.objects.filter(user=request.user)
-    return render(request, 'dine_essence/dashboard.html', {'reservations': user_reservations})
+    return render(
+        request,
+        'dine_essence/dashboard.html',
+        {'reservations': user_reservations}
+        )
 
 
 @login_required
@@ -53,10 +59,12 @@ def make_reservation(request):
         if form.is_valid():
             # Save reservation data
             reservation = form.save(commit=False)
-            reservation.user = request.user  # Associate with the logged-in user
+            reservation.user = request.user
             reservation.save()
             messages.success(request, "Reservation successfully created!")
-            return redirect('reservation_confirmation', reservation_id=reservation.id)
+            return redirect(
+                'reservation_confirmation',
+                reservation_id=reservation.id)
     else:
         # Check if a reservation is in progress
         if 'guests' not in request.session:
@@ -76,18 +84,30 @@ def make_reservation(request):
         }
         form = ReservationForm(initial=initial_data)
 
-    return render(request, 'dine_essence/make_reservation.html', {'form': form})
+    return render(
+        request, 'dine_essence/make_reservation.html', {'form': form})
 
 
 @login_required
 def reservation_confirmation(request, reservation_id):
-    reservation = get_object_or_404(Reservation, id=reservation_id, user=request.user)
-    return render(request, 'dine_essence/confirmation.html', {'reservation': reservation})
+    reservation = get_object_or_404(
+    Reservation, 
+    id=reservation_id, 
+    user=request.user
+)
+
+    return render(
+        request,
+        'dine_essence/confirmation.html', {'reservation': reservation})
 
 
 @login_required
 def edit_reservation(request, reservation_id):
-    reservation = get_object_or_404(Reservation, id=reservation_id, user=request.user)
+    reservation = get_object_or_404(
+    Reservation, 
+    id=reservation_id, 
+    user=request.user
+)
 
     if request.method == "POST":
         form = EditReservationForm(request.POST, instance=reservation)
@@ -104,6 +124,7 @@ def edit_reservation(request, reservation_id):
         'form': form,
         'reservation': reservation,
     })
+
 
 def check_availability(request):
     # Get the date and number of guests from the request
@@ -153,31 +174,38 @@ def check_availability(request):
             slot["available"] = False
 
     return JsonResponse({"slots": slots})
-    
+
 
 @login_required
 def cancel_reservation(request, reservation_id):
     # Fetch user's reservation
-    reservation = get_object_or_404(Reservation, id=reservation_id, user=request.user)
+    reservation = get_object_or_404(
+    Reservation, 
+    id=reservation_id, 
+    user=request.user
+)
 
     if request.method == 'POST':
         # Delete the reservation
         reservation.delete()
-        messages.success(request, "Your reservation has been successfully canceled.")
+        messages.success
+        (request, "Your reservation has been successfully canceled.")
         return redirect('dashboard')
 
     # Render the cancellation confirmation page
-    return render(request, 'dine_essence/cancel_reservation.html', {'reservation': reservation})
+    return render(
+        request,
+        'dine_essence/cancel_reservation.html',
+        {'reservation': reservation}
+        )
 
 
-    
 def menu_view(request):
-    categories = MenuItem.objects.values('category').distinct()  
-    menu_items = MenuItem.objects.all()  
+    categories = MenuItem.objects.values('category').distinct()
+    menu_items = MenuItem.objects.all()
     context = {
         'categories': categories,
         'menu_items': menu_items,
     }
 
     return render(request, 'dine_essence/menu.html', context)
-

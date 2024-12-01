@@ -51,9 +51,9 @@ I've tested my deployed project on multiple browsers to check for compatibility 
 
 | Browser | Home | About | Booking | Menu | Account | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| Chrome | ![screenshot](documentation/homepage-desktop.png) | ![screenshot](documentation/aboutpage-chrome.png) | ![screenshot](documentation/booking-page-chrome.png) | ![screenshot](documentation/menu-page-chrome.png)  | ![screenshot](documentation/menu-page-chrome.png) | Works as expected |
-| Opera | ![screenshot](documentation/homepage-opera.png) | ![screenshot](documentation/aboutpage-opera.png) | ![screenshot](documentation/booking-page-opera.png) | ![screenshot](documentation/menu-page-opera.png)  | ![screenshot](documentation/menu-page-opera.png) | Works as expected |
-| Edge | ![screenshot](documentation/homepage-edge.png) | ![screenshot](documentation/aboutpage-edge.png) | ![screenshot](documentation/booking-page-edge.png) | ![screenshot](documentation/menu-page-edge.png)  | ![screenshot](documentation/menu-page-edge.png) | Works as expected |
+| Chrome | ![screenshot](documentation/homepage-desktop.png) | ![screenshot](documentation/aboutpage-chrome.png) | ![screenshot](documentation/booking-page-chrome.png) | ![screenshot](documentation/menu-page-chrome.png)  | ![screenshot](documentation/account-page-chrome.png) | Works as expected |
+| Opera | ![screenshot](documentation/homepage-opera.png) | ![screenshot](documentation/aboutpage-opera.png) | ![screenshot](documentation/booking-page-opera.png) | ![screenshot](documentation/menu-page-opera.png)  | ![screenshot](documentation/account-page-opera.png) | Works as expected |
+| Edge | ![screenshot](documentation/homepage-edge.png) | ![screenshot](documentation/aboutpage-edge.png) | ![screenshot](documentation/booking-page-edge.png) | ![screenshot](documentation/menu-page-edge.png)  | ![screenshot](documentation/account-page-edge.png) | Works as expected |
 
 ## Lighthouse Audit
 
@@ -64,3 +64,12 @@ I've tested my deployed project using the Lighthouse Audit tool to check for any
 | Home | ![screenshot](documentation/lighthouse-mobile-home.png) | ![screenshot](documentation/lighthouse-desktop-home.png) | Slow response time due to large images and some warnings |
 | Booking | ![screenshot](documentation/lighthouse-desktop-booking.png) | ![screenshot](documentation/lighthouse-desktop-booking.png) | some warnings |
 
+## Responsiveness
+
+I've tested my deployed project for responsiveness issues.
+
+| Device| Home | About | Booking | Menu | Account | Signup | Login | Notes |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| Mobile (DevTools) | ![screenshot](documentation/home-mobile.png) | ![screenshot](documentation/about-mobile.png) | ![screenshot](documentation/booking-mobile.png) | ![screenshot](documentation/menu-mobile.png) | ![screenshot](documentation/account-mobile.png) | ![screenshot](documentation/signup-mobile.png) | ![screenshot](documentation/login-mobile.png) | Works as expected |
+| Tablet (DevTools) | ![screenshot](documentation/home-tablet.png) | ![screenshot](documentation/about-tablet.png) | ![screenshot](documentation/booking-tablet.png) | ![screenshot](documentation/menu-tablet.png) | ![screenshot](documentation/account-tablet.png) | ![screenshot](documentation/signup-tablet.png) | ![screenshot](documentation/login-tablet.png)   | Works as expected |
+| Desktop | ![screenshot](documentation/homepage-desktop.png) | ![screenshot](documentation/aboutpage-chrome.png) | ![screenshot](documentation/booking-page-chrome.png) | ![screenshot](documentation/menu-page-chrome.png) | ![screenshot](documentation/account-page-chrome.png) | ![screenshot](documentation/signup-desktop.png) | ![screenshot](documentation/login-desktop.png)  | Works as expected |

@@ -36,3 +36,7 @@ I have used the recommended [JShint Validator](https://jshint.com) to validate a
 ### Python
 
 I have used the recommended [PEP8 CI Python Linter](https://pep8ci.herokuapp.com) to validate all of my Python files.
+
+| Page | screenshot | Notes |                                                                                                 |
+| --- | --- | --- | ----------------------------------------------------------------------------------------------------------|
+| Admin  | ![screenshot](documentation/python-admin-validation.png) |  Pass: No Errors |

@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Select DOM elements
     const steps = {
         guests: document.querySelector("#step-guests"),
         date: document.querySelector("#step-date"),
@@ -17,84 +16,34 @@ document.addEventListener("DOMContentLoaded", () => {
     let selectedDate = null;
     let selectedTime = null;
 
-    // Step 0: Reset and start the reservation flow
-    const startReservationProcess = () => {
-        // Reset previous selections
-        selectedGuests = null;
-        selectedDate = null;
-        selectedTime = null;
-
-        document.querySelector("#guests-hidden").value = "";
-        document.querySelector("#date-hidden").value = "";
-        document.querySelector("#time-hidden").value = "";
-
-        // Show the guests step and hide others
-        Object.values(steps).forEach((step) => step.classList.add("hidden"));
-        steps.guests.classList.remove("hidden");
-    };
-
-    // Handle "Make a Reservation" button click
-    if (makeReservationButton) {
-        makeReservationButton.addEventListener("click", (e) => {
-            e.preventDefault();
-
-            // Check if the user is logged in
-            const isLoggedIn = document.body.dataset.loggedIn === "true";
-            if (!isLoggedIn) {
-                // Redirect to the login page with a return URL to resume the reservation
-                window.location.href = "/login?next=/make-reservation";
-            } else {
-                // Start the reservation process
-                startReservationProcess();
-            }
-        });
-    }
-
-    // Step 1: Handle Guest Selection
-    if (guestButtons.length > 0) {
-        guestButtons.forEach((btn) => {
-            btn.addEventListener("click", (e) => {
-                selectedGuests = e.target.dataset.guests;
-                document.querySelector("#guests-hidden").value = selectedGuests;
-
-                steps.guests.classList.add("hidden");
-                steps.date.classList.remove("hidden");
-            });
-        });
-    }
-
-    // Step 2: Handle Date Selection
     if (dateInput) {
-        // Set the minimum selectable date to today
-        const today = new Date().toISOString().split('T')[0]; // 'YYYY-MM-DD'
-        dateInput.setAttribute("min", today); // Set the minimum date
-        dateInput.value = ""; // Clear any pre-set value
-
-        dateInput.addEventListener("change", () => {
-            selectedDate = dateInput.value;
-            document.querySelector("#date-hidden").value = selectedDate;
-        });
+        const today = new Date().toISOString().split("T")[0];
+        dateInput.setAttribute("min", today); // Prevent selecting past dates
     }
 
-    nextToTimeButton.addEventListener("click", () => {
-        if (!selectedDate) {
-            alert("Please select a date.");
-            return;
-        }
-        steps.date.classList.add("hidden");
-        steps.time.classList.remove("hidden");
-        loadTimeSlots(selectedDate);
-    });
-
-    // Step 3: Load Time Slots
     const loadTimeSlots = (date) => {
+        const now = new Date();
+        const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
+        const isToday = date === now.toISOString().split("T")[0];
+
         fetch(`/check-availability?date=${date}&guests=${selectedGuests}`)
             .then((response) => response.json())
             .then((data) => {
                 timeSlotsContainer.innerHTML = ""; // Clear previous slots
+
                 data.slots.forEach((slot) => {
+                    const [hours, minutes] = slot.time.split(":").map(Number);
+                    const slotTimeInMinutes = hours * 60 + minutes;
+
+                    // Skip past slots if today
+                    if (isToday && slotTimeInMinutes <= currentTimeInMinutes) {
+                        return;
+                    }
+
                     const button = document.createElement("button");
-                    button.textContent = slot.available ? `Book ${slot.time}` : `${slot.time} (Not Available)`;
+                    button.textContent = slot.available
+                        ? `Book ${slot.time}`
+                        : `${slot.time} (Not Available)`;
                     button.disabled = !slot.available;
                     button.classList.add("time-slot-btn");
                     button.dataset.time = slot.time;
@@ -111,10 +60,61 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     timeSlotsContainer.appendChild(button);
                 });
+
+                if (!timeSlotsContainer.innerHTML) {
+                    timeSlotsContainer.innerHTML = `<p>No available time slots for the selected date.</p>`;
+                }
             })
             .catch((error) => {
                 console.error("Error loading time slots:", error);
                 timeSlotsContainer.innerHTML = `<p>Could not load time slots. Please try again later.</p>`;
             });
     };
+
+    if (nextToTimeButton) {
+        nextToTimeButton.addEventListener("click", () => {
+            if (!dateInput.value) {
+                alert("Please select a date.");
+                return;
+            }
+            selectedDate = dateInput.value;
+            steps.date.classList.add("hidden");
+            steps.time.classList.remove("hidden");
+            loadTimeSlots(selectedDate);
+        });
+    }
+
+    if (makeReservationButton) {
+        makeReservationButton.addEventListener("click", (e) => {
+            e.preventDefault();
+            const isLoggedIn = document.body.dataset.loggedIn === "true";
+
+            if (!isLoggedIn) {
+                window.location.href = "/login?next=/make-reservation";
+            } else {
+                selectedGuests = null;
+                selectedDate = null;
+                selectedTime = null;
+
+                document.querySelector("#guests-hidden").value = "";
+                document.querySelector("#date-hidden").value = "";
+                document.querySelector("#time-hidden").value = "";
+
+                Object.values(steps).forEach((step) => step.classList.add("hidden"));
+                steps.guests.classList.remove("hidden");
+            }
+        });
+    }
+
+    if (guestButtons.length > 0) {
+        guestButtons.forEach((btn) => {
+            btn.addEventListener("click", (e) => {
+                selectedGuests = e.target.dataset.guests;
+                document.querySelector("#guests-hidden").value = selectedGuests;
+
+                steps.guests.classList.add("hidden");
+                steps.date.classList.remove("hidden");
+            });
+        });
+    }
 });

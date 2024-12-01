@@ -87,22 +87,22 @@ def reservation_confirmation(request, reservation_id):
 
 @login_required
 def edit_reservation(request, reservation_id):
-    reservation = get_object_or_404(Reservation, id=reservation_id, user=request.user)  # Check if user owns reservation
-    today = date.today()
+    reservation = get_object_or_404(Reservation, id=reservation_id, user=request.user)
 
     if request.method == "POST":
-        form = ReservationForm(request.POST, instance=reservation)
+        form = EditReservationForm(request.POST, instance=reservation)
         if form.is_valid():
             form.save()
             messages.success(request, "Reservation updated successfully!")
             return redirect('dashboard')
+        else:
+            messages.error(request, "Please correct the errors below.")
     else:
-        form = ReservationForm(instance=reservation)
+        form = EditReservationForm(instance=reservation)
 
     return render(request, 'dine_essence/edit_reservation.html', {
         'form': form,
         'reservation': reservation,
-        'today': today,
     })
 
 def check_availability(request):

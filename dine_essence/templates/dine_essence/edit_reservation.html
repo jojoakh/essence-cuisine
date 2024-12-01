@@ -2,48 +2,32 @@
 {% load static %}
 
 {% block content %}
-<div class="container mt-4">
+<div class="form-wrapper">
+    <div class="form-container">
     <h1>Edit Reservation</h1>
-    <form method="POST">
+    <form method="post" action="{% url 'edit_reservation' reservation.id %}">
         {% csrf_token %}
-        
-        <!-- Reservation Date -->
+    
         <div class="form-group">
-            <label for="{{ form.reservation_date.id_for_label }}">Reservation Date</label>
-            <!-- This should generate an input with id="reservation-date" -->
+            <label for="reservation_date">Date</label>
             {{ form.reservation_date }}
-            {% for error in form.reservation_date.errors %}
-                <div class="alert alert-danger">{{ error }}</div>
-            {% endfor %}
         </div>
-        
-
-        <!-- Reservation Time -->
-        <div class="form-group mt-3">
-            <label for="{{ form.reservation_time.id_for_label }}">Reservation Time</label>
-            <input type="hidden" id="reservation-time" name="reservation_time">
-            <div>
-                <h3>Select Time</h3>
-                <div id="time-slots">
-                    <!-- Time slots will be dynamically inserted here -->
-                </div>
-            </div>
+    
+        <div class="form-group">
+            <label for="reservation_time">Time</label>
+            {{ form.reservation_time }}
         </div>
-
-        <!-- Guest Count -->
-        <div class="form-group mt-3">
-            <label for="{{ form.guest_count.id_for_label }}">Guest Count</label>
+    
+        <div class="form-group">
+            <label for="guest_count">Number of Guests</label>
             {{ form.guest_count }}
-            {% for error in form.guest_count.errors %}
-                <div class="alert alert-danger">{{ error }}</div>
-            {% endfor %}
         </div>
-        
-        <button type="submit" class="btn btn-primary mt-3">Update Reservation</button>
-    </form>
+    
+        <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+    </form>    
+    
+</div>
 </div>
 {% endblock %}
 
-{% block js %}
-<script src="{% static 'js/edit.js' %}"></script>
-{% endblock %}
+

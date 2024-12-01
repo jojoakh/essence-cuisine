@@ -2,25 +2,24 @@
 
 {% block content %}
 <div class="form-wrapper">
-    <div class="form-container">
-        <h2 class="mb-4">Cancel Your Reservation</h2>
+    <div class="form-container text-center">
         
         {% if reservation %}
-            <p>Are you sure you want to cancel your reservation?</p>
             <p><strong>Reservation Details:</strong></p>
             <p><strong>Username:</strong> {{ reservation.user.username }}</p>
             <p><strong>Email:</strong> {{ reservation.email }}</p>
             <p><strong>Guests:</strong> {{ reservation.guest_count }}</p>
             <p><strong>Date:</strong> {{ reservation.reservation_date }}</p>
             <p><strong>Time:</strong> {{ reservation.reservation_time }}</p>
+            <p>Are you sure you want to cancel your reservation?</p>
 
-            <form method="POST" action="{% url 'cancel_reservation' reservation.id %}" style="display:inline;">
-                {% csrf_token %}
-                <input type="hidden" name="reservation_id" value="{{ reservation.id }}">
-                <button type="submit" class="btn btn-danger">Yes, Cancel</button>
-            </form>
-
-            <div class="d-flex justify-content-center mt-3">
+            <!-- Centered Buttons -->
+            <div class="d-flex flex-column align-items-center mt-4">
+                <form method="POST" action="{% url 'cancel_reservation' reservation.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="reservation_id" value="{{ reservation.id }}">
+                    <button type="submit" class="btn btn-danger mb-3">Yes, Cancel</button>
+                </form>
                 <a href="{% url 'dashboard' %}" class="btn btn-secondary">No, Go Back</a>
             </div>
         {% else %}

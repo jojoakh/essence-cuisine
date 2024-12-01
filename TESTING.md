@@ -23,5 +23,5 @@ I have used the recommended [CSS Jigsaw Validator](https://jigsaw.w3.org/css-val
 
 | Page | screenshot | Notes |                                                                                                 |
 | --- | --- | --- | ----------------------------------------------------------------------------------------------------------|
-| style.css  | ![screenshot](documentation/css-validation.png) |  I am aware of the error that occurs when running through the validator however, due to the error coming from the external flatpickr.css and not my own, I am unable to do anything about this.|
-| style.css  | ![screenshot](documentation/css-direct-input-validation.png) | Pass: No Errors |
+| style.css  | ![screenshot](documentation/css-validtion.png) |  I am aware of the error that occurs when running the validation; however, since the error originates from the external bootstrap.min.css, I am unable to do anything about it.|
+| style.css  | ![screenshot](documentation/css-direct-input-validation.png) | Pass: No Errors from my own css|

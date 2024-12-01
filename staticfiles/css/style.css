@@ -1,11 +1,6 @@
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 
-/* Default fallback value */
-:root {
-    --fa-rotate-angle: 0deg; 
-}
-
 /* Global Styles */
 html {
     scroll-behavior: smooth;

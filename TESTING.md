@@ -23,4 +23,12 @@ I have used the recommended [CSS Jigsaw Validator](https://jigsaw.w3.org/css-val
 
 | Page | screenshot | Notes |                                                                                                 |
 | --- | --- | --- | ----------------------------------------------------------------------------------------------------------|
-| style.css  | ![screenshot](documentation/css-validation.png) |  Pass: No Errors |
+| Style.css  | ![screenshot](documentation/css-validation.png) |  Pass: No Errors |
+
+### JavaScript
+
+I have used the recommended [JShint Validator](https://jshint.com) to validate all of my JS files.
+
+| Page | screenshot | Notes |                                                                                                 |
+| --- | --- | --- | ----------------------------------------------------------------------------------------------------------|
+| Reservation.js  | ![screenshot](documentation/js-reservation-validation.png) |  Pass: No Errors |

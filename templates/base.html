@@ -42,25 +42,22 @@
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About Us</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'make_reservation' %}">Reserve a Table</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'make_reservation' %}">Reserve a Table</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'menu' %}">Menu</a></li>
 
                         <!-- Authentication Links -->
-                        <ul class="navbar-nav ms-auto">
-                            {% if user.is_authenticated %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'dashboard' %}">My Account</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                            </li>
-                            {% else %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'login' %}">Login</a>
-                            </li>
-                            {% endif %}
-                        </ul>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'dashboard' %}">My Account</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

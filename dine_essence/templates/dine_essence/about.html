@@ -1,20 +1,22 @@
 {% extends 'base.html' %}
-{% load static %} 
+{% load static %}
 
 {% block content %}
 
-    <div class="image-background-container position-relative d-flex align-items-center justify-content-center" style="height: 80vh;">
-       
-        <img src="{% static 'images/top-about-image.jpg' %}" alt="woman eating spaghetti" class="img-fluid w-100 h-100" style="object-fit: cover;">
-        
-        <div class="image-background-container-text position-absolute text-center text-white">
-            <h1>About Essence Cuisine</h1>
-    
-        </div>
-    </div>
+<div class="image-background-container position-relative d-flex align-items-center justify-content-center"
+    style="height: 80vh;">
 
-    <div class="about-page">
-        
+    <img src="{% static 'images/top-about-image.jpg' %}" alt="woman eating spaghetti" class="img-fluid w-100 h-100"
+        style="object-fit: cover;">
+
+    <div class="image-background-container-text position-absolute text-center text-white">
+        <h1 class="display-4 fw-bold text-center">About Essence Cuisine</h1>
+
+    </div>
+</div>
+
+<div class="about-page">
+
     <!-- Existing About Section -->
     <div class="container py-5">
         <div class="row align-items-center">
@@ -52,7 +54,8 @@
         <div class="col text-center">
             <h2 class="display-5 fw-bold">Opening Hours</h2>
             <p class="fs-4 mt-3">
-                At Essence Cuisine, we’re open every day to bring you the finest dining experience. Our doors are open at the following times:
+                At Essence Cuisine, we’re open every day to bring you the finest dining experience. Our doors are open
+                at the following times:
             </p>
         </div>
     </div>

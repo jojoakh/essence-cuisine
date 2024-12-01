@@ -31,10 +31,10 @@ SECRET_KEY = 'django-insecure-3e%q(1(0az8j6*8qi!j0t7%zp+qf7ta@y-5hj&bjbqhjcm1+u3
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING:S don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["8000-jojoakh-essencecuisine-qlbduc49ssw.ws.codeinstitute-ide.net", ".herokuapp.com"]
-
+ 
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-jojoakh-essencecuisine-qlbduc49ssw.ws.codeinstitute-ide.net',
     'https://your-heroku-app.herokuapp.com'

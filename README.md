@@ -15,6 +15,21 @@ We specialize in dishes that are crafted with the finest ingredients, carefully 
 
 We offers a diverse range of dishes, drawing inspiration from global culinary traditions. From locally sourced, seasonal ingredients to exotic spices and international flavors, our menu offers a journey of taste that spans continents while maintaining a local connection. Whether you’re craving an indulgent starter, a beautifully crafted main course, or a decadent dessert, we aim to delight every palate.
 
+## UX
+
+### Color Scheme
+
+- `#FFFFFF` used all throughout the site primarily on text elements.
+- `#007bff` used for buttons through out the site.
+- `#ffc107` used for reserve a table button.
+- `#333333` used all throughout the site, mainly on text.
+- `#dc3545` used for buttons.
+- `#f4f4f4` used all throughout the site, it is the main background colour for the site.
+
+
+I used [coolors.co](https://coolors.co/007bff-ffc107-ffffff-333333-dc3545-f4f4f4) to generate my colour palette.
+
+![screenshot](documentation/colour-palette.png)
 
 
 

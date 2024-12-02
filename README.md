@@ -1,10 +1,6 @@
 
 # [Essence Cuisine](https://essence-cuisine-7b8c204f88bc.herokuapp.com)
 
-
-
----
-
 Essence Cuisine is a sophisticated and vibrant dining destination that embodies the true essence of gourmet dining. At the heart of our philosophy is the belief that food is not only a means to nourish but an experience that connects people, evokes emotions, and celebrates diverse culinary traditions. We offer an elevated dining experience where flavor, aesthetics, and culture come together harmoniously.
 
 **Our Concept**

@@ -73,3 +73,20 @@ I've tested my deployed project for responsiveness issues.
 | Mobile (DevTools) | ![screenshot](documentation/home-mobile.png) | ![screenshot](documentation/about-mobile.png) | ![screenshot](documentation/booking-mobile.png) | ![screenshot](documentation/menu-mobile.png) | ![screenshot](documentation/account-mobile.png) | ![screenshot](documentation/signup-mobile.png) | ![screenshot](documentation/login-mobile.png) | Works as expected |
 | Tablet (DevTools) | ![screenshot](documentation/home-tablet.png) | ![screenshot](documentation/about-tablet.png) | ![screenshot](documentation/booking-tablet.png) | ![screenshot](documentation/menu-tablet.png) | ![screenshot](documentation/account-tablet.png) | ![screenshot](documentation/signup-tablet.png) | ![screenshot](documentation/login-tablet.png)   | Works as expected |
 | Desktop | ![screenshot](documentation/homepage-desktop.png) | ![screenshot](documentation/aboutpage-chrome.png) | ![screenshot](documentation/booking-page-chrome.png) | ![screenshot](documentation/menu-page-chrome.png) | ![screenshot](documentation/account-page-chrome.png) | ![screenshot](documentation/signup-desktop.png) | ![screenshot](documentation/login-desktop.png)  | Works as expected |
+
+## Bugs
+
+- **Issue in edit_reservation Functionality**
+Users were able to select already-booked time slots when editing a reservation, which could result in double booking. Additionally, validation logic for date and time was either missing or insufficient, causing unintended behavior.
+
+- The issue stemmed from the logic not dynamically excluding already-booked slots for the specific reservation date when the form was rendered. While time slots were being calculated, the exclusion of booked slots was incomplete during updates.
+
+- Steps Taken to Fix this:
+   - updated the logic to dynamically exclude booked slots for the selected reservation date, ensuring users could only choose from available slots.
+   - This involved querying the database to retrieve all reservations on the same date, excluding the reservation being edited, and comparing their times with the available slots.
+   - To prevent double booking, I implemented a custom validation method in the EditReservationForm. This checks if the selected time slot is already booked for the chosen date and raises an error if unavailable.
+
+- I encountered an issue while validating my CSS. The problem stemmed from CSS validation errors related to dynamic Font Awesome properties (--fa-rotate-angle) not being recognized.
+![screenshot](documentation/css-bug.png)
+
+- To fix this I switched to the Font Awesome kit script and added crossorigin="anonymous", which fixed compatibility issues and ensured the latest version loads correctly, preventing further conflicts.

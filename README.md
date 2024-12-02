@@ -371,3 +371,35 @@ You can fork this repository by using the following steps:
 1. Log in to GitHub and locate the [GitHub Repository](https://github.com/jojoakh/essence-cuisine)
 2. At the top of the Repository (not top of page) just above the "Settings" Button on the menu, locate the "Fork" Button.
 3. Once clicked, you should now have a copy of the original repository in your own GitHub account!
+
+## Credits
+
+### Content
+
+| Source                                                                                                                            | Location    | Notes                                   |
+|-----------------------------------------------------------------------------------------------------------------------------------|-------------|-----------------------------------------|
+| [Markdown Builder](https://tim.2bn.dev/markdown-builder)                                                                          | README and TESTING | tool to help generate the Markdown files |
+| [Bootstrap](https://getbootstrap.com/docs/5.3/components/navbar/)                                                                 | entire site | responsive HTML/CSS/JS navbar           |
+| [Django Docs](https://docs.djangoproject.com/en/5.0/topics/auth/default/)                                                         | `models.py` `views.py` | user creation form                      |
+| [Django Docs](https://docs.djangoproject.com/en/5.0/ref/forms/widgets/)                                                           | `forms.py`  | django widgets documentation            |
+| [W3Schools](https://www.w3schools.com/cssref/sel_element_pluss.php)                                                               | style.css   | CSS element+element selector            |
+| [WhiteNoise](http://whitenoise.evans.io)                                                                                          | entire site | hosting static files on Heroku temporarily |
+| [GitHub Docs](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/creating-diagrams)        | readme      | implementing the ERD diagram            |
+
+
+### Media
+
+| Source | Location | Type | Notes |
+| --- | --- | --- | --- |
+| [Pexels](https://www.pexels.com/photo/woman-eating-spaghetti-10766722/) | about page | image | about essence |
+| [Pexels](https://www.pexels.com/photo/crystal-vase-with-leaves-on-a-table-in-restaurant-17057009/) | about page | image | about page |
+| [Pexels](https://www.pexels.com/photo/photo-of-tables-and-chairs-3534750/) | home | image | background |
+| [Font Awesome](https://fontawesome.com/icons/tiktok?f=brands&s=solid) | footer | image | TikTok icon |
+| [Font Awesome](https://fontawesome.com/icons/instagram?f=brands&s=solid) | footer | image | Instagram icon |
+| [Font Awesome](https://fontawesome.com/icons/x-twitter?f=brands&s=solid) | footer | image | Twitter icon |
+| [Font Awesome](https://fontawesome.com/icons/facebook?f=brands&s=solid) | footer | image | Facebook icon |
+
+### Acknowledgement
+
+- I would like to thank my lovely husband for being there all the time i needed his help and for supporting me to take this step into software development.
+- I would like to thank the [Tutor Assistance](https://learn.codeinstitute.net/ci_support/diplomainfullstacksoftwarecommoncurriculum/tutor) for their help with debugging some project issues.

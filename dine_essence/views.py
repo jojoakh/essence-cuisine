@@ -103,21 +103,9 @@ def reservation_confirmation(request, reservation_id):
 
 @login_required
 def edit_reservation(request, reservation_id):
-    start_time = time(11, 0)  # Define the start time
-    current_time = datetime.combine(date.today(), start_time)  # Combine the date and time
-    current_time += timedelta(minutes=30)  # Add 30 minutes 
     reservation = get_object_or_404(Reservation, pk=reservation_id)
 
-    if request.method == 'POST':
-        form = EditReservationForm(request.POST, instance=reservation)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "Reservation updated successfully!")
-            return redirect('dashboard')  # Redirect to the dashboard
-    else:
-        form = EditReservationForm(instance=reservation)
-
-    # Generate time slots (11:00 AM to 9:00 PM)
+    # Define available time slots (11:00 AM to 9:00 PM)
     start_time = time(11, 0)
     end_time = time(21, 0)
     time_slots = []
@@ -135,10 +123,24 @@ def edit_reservation(request, reservation_id):
         booked_slots = [slot.strftime("%H:%M") for slot in booked_slots]
         time_slots = [slot for slot in time_slots if slot not in booked_slots]
 
+    # Initialize form with dynamically updated time slots
+    form = EditReservationForm(
+        request.POST or None,
+        instance=reservation,
+        time_slots=time_slots
+    )
+
+    if request.method == 'POST':
+        if form.is_valid():
+            # Save the updated reservation
+            form.save()
+            messages.success(request, "Reservation updated successfully!")
+            return redirect('dashboard')
+
     return render(request, 'dine_essence/edit_reservation.html', {
         'form': form,
         'reservation': reservation,
-        'today': date.today().isoformat(),
+        'today': date.today().strftime("%Y-%m-%d"),
         'guest_count_range': range(1, 11),  # Add guest count range
         'time_slots': time_slots,          # Add available time slots
     })

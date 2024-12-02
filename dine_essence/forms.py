@@ -2,10 +2,10 @@ from django import forms
 from .models import Reservation
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.forms.widgets import DateInput, NumberInput, Select
 from datetime import datetime, date, time, timedelta
-
 
 
 class ReservationForm(forms.ModelForm):
@@ -50,38 +50,44 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class EditReservationForm(forms.ModelForm):
+    reservation_date = forms.DateField(
+        widget=forms.SelectDateWidget(), 
+        label="Reservation Date"
+    )
+    reservation_time = forms.ChoiceField(
+        choices=[],  # This will be dynamically filled with available slots
+        label="Reservation Time"
+    )
+    guest_count = forms.IntegerField(
+        min_value=1, 
+        max_value=10, 
+        widget=forms.Select(choices=[(i, i) for i in range(1, 11)]),  # Dropdown from 1 to 10
+        label="Number of Guests"
+    )
+
     class Meta:
         model = Reservation
-        fields = ['guest_count', 'reservation_date', 'reservation_time']
+        fields = ['reservation_date', 'reservation_time', 'guest_count']
 
     def __init__(self, *args, **kwargs):
+        # Pop the time_slots list so it can be passed dynamically
+        time_slots = kwargs.pop('time_slots', [])
         super().__init__(*args, **kwargs)
-        
-        # Predefined time slots (example: you can adjust this list as per your needs)
-        self.time_slots = [
-            "12:00", "12:30", "13:00", "13:30", "14:00", 
-            "14:30", "15:00", "15:30", "16:00", "16:30", 
-            "17:00", "17:30", "18:00", "18:30", "19:00",
-            
-        ]
-        
-        # Ensure guest_count and reservation_time have the right choices and validation
-        self.fields['reservation_time'].choices = [(slot, slot) for slot in self.time_slots]
 
-    def clean_reservation_time(self):
-        reservation_time = self.cleaned_data['reservation_time']
-        
-        # Ensure the time is one of the predefined time slots
-        if reservation_time not in self.time_slots:
-            raise forms.ValidationError("Invalid time slot selected. Please choose a valid time.")
-        
-        return reservation_time
+        # Update the reservation_time field choices dynamically
+        self.fields['reservation_time'].choices = [(slot, slot) for slot in time_slots]
 
     def clean_reservation_date(self):
-        reservation_date = self.cleaned_data['reservation_date']
-        
-        # Ensure the reservation date is not in the past
-        if reservation_date < datetime.today().date():
-            raise forms.ValidationError("The reservation date cannot be in the past.")
-        
-        return reservation_date
+        # Ensure the selected date is not in the past
+        selected_date = self.cleaned_data['reservation_date']
+        if selected_date < timezone.now().date():
+            raise ValidationError("You cannot select a past date.")
+        return selected_date
+
+    def clean_reservation_time(self):
+        # Ensure the selected time is one of the available time slots
+        selected_time = self.cleaned_data['reservation_time']
+        available_slots = dict(self.fields['reservation_time'].choices)
+        if selected_time not in available_slots:
+            raise ValidationError("Please select a valid available time.")
+        return selected_time

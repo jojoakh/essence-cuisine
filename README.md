@@ -31,6 +31,33 @@ I used [coolors.co](https://coolors.co/007bff-ffc107-ffffff-333333-dc3545-f4f4f4
 
 ![screenshot](documentation/colour-palette.png)
 
+### Typography
+
+- [Montserrat](https://fonts.google.com/specimen/Montserrat) was used through out the site.
+
+- [Font Awesome](https://fontawesome.com) icons were used throughout the site, such as the social media icons in the footer.
+
+## User Stories
+
+### New Site Users
+
+- As a new site user, I would like to **register for an account**, so that I can **make a reservation**.
+- As a new site user, I would like to **view the list the menu**, so that I can **so that i know what to select**.
+
+### Registered Site Users
+
+- As a registered site user, I would like to **log in to my account**, so that I can **view my reservations**.
+- As a registered site user, I would like to **book a reservation**, so that I can **so that i can reserve a table when i visit**.
+- As a registered site user, I would like to **edit my reservation**, so that I can **change the date, time or number of guests**.
+- As a registered site user, I would like to **cancel my reservation**, so that I can **free up space if my plans change and allow other users to book that time slot**.
+
+### Site Admin
+
+- As a site administrator, I should be able to **view all reservation**, so that I can **manage and monitor the schedule**.
+- As a site administrator, I should be able to **add menu**, so that I can **user can view the menu**.
+
+
+
 
 
 

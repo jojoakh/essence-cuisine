@@ -115,7 +115,7 @@ def edit_reservation(request, reservation_id):
         time_slots.append(current_time.strftime("%H:%M"))
         current_time += timedelta(minutes=30)
 
-    # Exclude already booked slots for the selected date
+    # Exclude already booked slots for the selected date (excluding the current reservation)
     if reservation.reservation_date:
         booked_slots = Reservation.objects.filter(
             reservation_date=reservation.reservation_date
@@ -132,10 +132,22 @@ def edit_reservation(request, reservation_id):
 
     if request.method == 'POST':
         if form.is_valid():
-            # Save the updated reservation
-            form.save()
-            messages.success(request, "Reservation updated successfully!")
-            return redirect('dashboard')
+            # Get the newly selected reservation date and time from the form
+            new_reservation_date = form.cleaned_data['reservation_date']
+            new_reservation_time = form.cleaned_data['reservation_time']
+
+            # Check if the new time slot is already booked (excluding the current reservation)
+            if Reservation.objects.filter(
+                reservation_date=new_reservation_date,
+                reservation_time=new_reservation_time
+            ).exclude(pk=reservation.pk).exists():
+                form.add_error('reservation_time', 
+                "The selected time slot is already booked. Please choose another time.")
+            else:
+                # If the time slot is available, save the updated reservation
+                form.save()
+                messages.success(request, "Reservation updated successfully!")
+                return redirect('dashboard')
 
     return render(request, 'dine_essence/edit_reservation.html', {
         'form': form,

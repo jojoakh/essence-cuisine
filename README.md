@@ -56,7 +56,21 @@ I used [coolors.co](https://coolors.co/007bff-ffc107-ffffff-333333-dc3545-f4f4f4
 - As a site administrator, I should be able to **view all reservation**, so that I can **manage and monitor the schedule**.
 - As a site administrator, I should be able to **add menu**, so that I can **user can view the menu**.
 
+## Wireframes
 
+| Page | Mobile | Desktop | 
+| --- | --- | --- |
+| Home | ![screenshot](documentation/mobile-wireframe-home.png) | ![screenshot](documentation/desktop-wireframe-home.png) | 
+| About | ![screenshot](documentation/mobile-wireframe-aboutpage.png) | ![screenshot](documentation/desktop-wireframe-aboutpage.png) | 
+| Menu | ![screenshot](documentation/mobile-wireframe-menu.png) | ![screenshot](documentation/desktop-wireframe-menu.png) | 
+
+## Features
+
+There are many features on the website which are easy to follow and navigate, creating a nice user experience.
+
+### Existing Features
+
+#### Navbar, Footer & Sidebar
 
 
 

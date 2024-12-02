@@ -7,18 +7,19 @@
         <h2 class="mb-4">Edit Reservation</h2>
         <form method="POST">
             {% csrf_token %}
-            {{ form.as_p }} <!-- Render the form fields -->
-
+            {{ form.as_p }}  <!-- Render form fields, including the time selection -->
+        
             <!-- Save Changes Button -->
             <div class="text-center mt-3">
                 <button type="submit" class="btn btn-primary">Save Changes</button>
             </div>
-
+        
             <!-- Cancel Button -->
             <div class="text-center mt-3">
                 <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
+        
 
     </div>
 </div>

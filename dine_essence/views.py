@@ -7,13 +7,13 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.utils.dateparse import parse_date
-from django.utils.timezone import now
+from django.utils import timezone
 from datetime import datetime
 from .forms import ReservationForm
 from .forms import EditReservationForm
 from .models import Reservation
 from .models import MenuItem
-from datetime import date
+from datetime import datetime, time, date, timedelta
 
 
 # Create your views here.
@@ -103,26 +103,44 @@ def reservation_confirmation(request, reservation_id):
 
 @login_required
 def edit_reservation(request, reservation_id):
-    reservation = get_object_or_404(
-    Reservation, 
-    id=reservation_id, 
-    user=request.user
-)
+    start_time = time(11, 0)  # Define the start time
+    current_time = datetime.combine(date.today(), start_time)  # Combine the date and time
+    current_time += timedelta(minutes=30)  # Add 30 minutes 
+    reservation = get_object_or_404(Reservation, pk=reservation_id)
 
-    if request.method == "POST":
+    if request.method == 'POST':
         form = EditReservationForm(request.POST, instance=reservation)
         if form.is_valid():
             form.save()
             messages.success(request, "Reservation updated successfully!")
-            return redirect('dashboard')
-        else:
-            messages.error(request, "Please correct the errors below.")
+            return redirect('dashboard')  # Redirect to the dashboard
     else:
         form = EditReservationForm(instance=reservation)
+
+    # Generate time slots (11:00 AM to 9:00 PM)
+    start_time = time(11, 0)
+    end_time = time(21, 0)
+    time_slots = []
+    current_time = datetime.combine(date.today(), start_time)
+
+    while current_time.time() <= end_time:
+        time_slots.append(current_time.strftime("%H:%M"))
+        current_time += timedelta(minutes=30)
+
+    # Exclude already booked slots for the selected date
+    if reservation.reservation_date:
+        booked_slots = Reservation.objects.filter(
+            reservation_date=reservation.reservation_date
+        ).exclude(pk=reservation.pk).values_list('reservation_time', flat=True)
+        booked_slots = [slot.strftime("%H:%M") for slot in booked_slots]
+        time_slots = [slot for slot in time_slots if slot not in booked_slots]
 
     return render(request, 'dine_essence/edit_reservation.html', {
         'form': form,
         'reservation': reservation,
+        'today': date.today().isoformat(),
+        'guest_count_range': range(1, 11),  # Add guest count range
+        'time_slots': time_slots,          # Add available time slots
     })
 
 

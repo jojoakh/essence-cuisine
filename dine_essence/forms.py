@@ -2,7 +2,10 @@ from django import forms
 from .models import Reservation
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from datetime import datetime, time, date
+from django.core.exceptions import ValidationError
+from django.forms.widgets import DateInput, NumberInput, Select
+from datetime import datetime, date, time, timedelta
+
 
 
 class ReservationForm(forms.ModelForm):
@@ -49,74 +52,36 @@ class CustomUserCreationForm(UserCreationForm):
 class EditReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
-        fields = ['reservation_date', 'reservation_time', 'guest_count']
+        fields = ['guest_count', 'reservation_date', 'reservation_time']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
-        # Limit guest count to 1-10
-        self.fields['guest_count'].widget = forms.NumberInput(attrs={
-            'type': 'number',
-            'min': 1,
-            'max': 10
-        })
-
-        # Set the min date for the reservation_date field to prevent selecting past dates
-        self.fields['reservation_date'].widget = forms.DateInput(attrs={
-            'type': 'date',
-            'min': date.today().strftime('%Y-%m-%d')  # Prevent past dates
-        })
-
-        # Dynamically adjust available times based on reservation_date
-        if 'reservation_date' in self.initial:
-            selected_date = self.initial['reservation_date']
-
-            # Get current time and date
-            now = datetime.now()
-
-            if selected_date == now.date():
-                # Filter times for today: only allow future times
-                self.fields['reservation_time'].widget = forms.Select(choices=[
-                    (self._time_to_str(time_obj), self._time_to_str(time_obj, "%I:%M %p"))
-                    for time_obj in self._get_available_times(selected_date)
-                    if datetime.combine(selected_date, time_obj) > now
-                ])
-            else:
-                # Show all available times for future dates
-                self.fields['reservation_time'].widget = forms.Select(choices=[
-                    (self._time_to_str(time_obj), self._time_to_str(time_obj, "%I:%M %p"))
-                    for time_obj in self._get_available_times(selected_date)
-                ])
-
-    def _get_available_times(self, selected_date):
-        """
-        Fetch available times as a list of `datetime.time` objects from 11:00 AM to 9:00 PM,
-        with slots every 30 minutes. Removes times that are already booked.
-        """
-        # Create time slots from 11:00 AM to 9:00 PM, every 30 minutes
-        time_slots = []
-        start_hour = 11  # Start at 11:00 AM
-        end_hour = 21  # End at 9:00 PM
-
-        for hour in range(start_hour, end_hour + 1):
-            # Create both 00 and 30 minute intervals for each hour
-            time_slots.append(time(hour, 0))  # 00 minute (e.g., 11:00, 12:00)
-            time_slots.append(time(hour, 30))  # 30 minute (e.g., 11:30, 12:30)
-
-        # Retrieve existing reservations for the selected date
-        booked_slots = Reservation.objects.filter(reservation_date=selected_date)
-
-        # Remove the booked slots from the available time slots
-        available_slots = [
-            time_obj for time_obj in time_slots
-            if not booked_slots.filter(reservation_time=time_obj.strftime("%H:%M")).exists()
+        
+        # Predefined time slots (example: you can adjust this list as per your needs)
+        self.time_slots = [
+            "12:00", "12:30", "13:00", "13:30", "14:00", 
+            "14:30", "15:00", "15:30", "16:00", "16:30", 
+            "17:00", "17:30", "18:00", "18:30", "19:00",
+            
         ]
+        
+        # Ensure guest_count and reservation_time have the right choices and validation
+        self.fields['reservation_time'].choices = [(slot, slot) for slot in self.time_slots]
 
-        return available_slots
+    def clean_reservation_time(self):
+        reservation_time = self.cleaned_data['reservation_time']
+        
+        # Ensure the time is one of the predefined time slots
+        if reservation_time not in self.time_slots:
+            raise forms.ValidationError("Invalid time slot selected. Please choose a valid time.")
+        
+        return reservation_time
 
-    def _time_to_str(self, time_obj, format_str="%H:%M"):
-        """
-        Convert time object to string format.
-        Default format: "%H:%M" (24-hour format).
-        """
-        return time_obj.strftime(format_str)
+    def clean_reservation_date(self):
+        reservation_date = self.cleaned_data['reservation_date']
+        
+        # Ensure the reservation date is not in the past
+        if reservation_date < datetime.today().date():
+            raise forms.ValidationError("The reservation date cannot be in the past.")
+        
+        return reservation_date

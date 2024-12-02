@@ -15,6 +15,6 @@
     <li><strong>Reservation Date:</strong> {{ reservation.reservation_date }}</li>
     <li><strong>Reservation Time:</strong> {{ reservation.reservation_time }}</li>
 </ul>
-<a href="/" class="btn btn-primary">Back to Home</a>
+<a href="{% url 'dashboard' %}" class="btn btn-primary">Back to Reservations</a>
 </div>
 {% endblock %}

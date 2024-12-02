@@ -153,10 +153,39 @@ The footer, also featured on every page, includes social media links and copyrig
 - [![Djecrety](https://img.shields.io/badge/Djecrety-grey?logo=djecrety&logoColor=FF3670)](https://djecrety.ir/) tool used for generating django secret keys.
 - [![Balsamiq](https://img.shields.io/badge/Balsamiq-grey?logo=balsamiq&logoColor=000000)](https://balsamiq.com/) used to create wireframes in early development.
 
+## Database Design
+
+Entity Relationship Diagrams (ERDs) are valuable tools for visualizing the structure and relationships within a database before developing the models. By mapping out how different tables interact, ERDs provide a clear overview of the data flow and dependencies, which can streamline the design process. Understanding these connections early on helps identify potential issues, ensuring a more efficient development phase. Additionally, ERDs serve as a useful reference for future updates or modifications to the database, making it easier to maintain and scale the system as the project evolves.
+
+```mermaid
+erDiagram
+USER ||--o{ RESERVATION : makes
+USER ||--|{ MENUITEM : "views"
 
 
+    USER {
+        string username
+        string email
+        string password
+    }
+    
+    RESERVATION {
+        date reservation_date
+        time reservation_time
+        int guest_count
+        string email
+        string phone
+    }
+    
+    MENUITEM {
+        string name
+        string category
+        string description
+        decimal price
+        string currency
+    }
 
-
+```
 
 
 

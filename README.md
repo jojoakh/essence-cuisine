@@ -72,6 +72,63 @@ There are many features on the website which are easy to follow and navigate, cr
 
 #### Navbar, Footer & Sidebar
 
+- **Navbar**: The navigation bar is prominently displayed on every page, improving the user experience by offering easy access to all sections of the website and boosting the visibility of important pages.
+
+![screenshot](documentation/navbar.png)
+![screenshot](documentation/sidebar.png)
+
+- **Sidebar**: Mobile users, will have access to the *sidebar*, this provides the same benefits as the navigation bar allowing users to easily access all pages of the site on mobile devices.
+
+![screenshot](documentation/footer.png)
+
+The footer, also featured on every page, includes social media links and copyright information. This enhances user engagement, promotes brand consistency, ensures legal compliance, and improves navigational accessibility.
+
+#### Home Page
+
+ - **Home Image**: The homepage features a captivating image of an elegant dining restaurant setting, effectively showcasing the ambiance and quality of Essence Cuisine's dining experience. This creates an immediate visual appeal and fosters trust with users.
+
+ - **Welcome Message**: The welcome message, perfectly captures the essence of what your restaurant offers. It invites guests into a dining experience that is not only about taste but also about elegance and refinement. The phrase highlights the seamless blend of exceptional flavors and a sophisticated atmosphere, setting the tone for a memorable and upscale dining experience at Essence Cuisine.
+
+![screenshot](documentation/homepage-edge.png)
+
+ - **Opening Hours**: Displaying opening hours helps create a smooth and hassle-free user experience, reducing the chances of frustration if a customer tries to visit outside of operating hours.
+![screenshot](documentation/opening-hours.png)
+
+- **Contact Us**: The contact us section provides visitors with easy access to ways they can reach your restaurant, whether for making reservations, asking questions, or addressing concerns.
+![screenshot](documentation/contact-information.png)
+
+#### About Page
+
+- **About Essence Cuisine**: This section highlight what makes shows the users what makes the restaurant stand out, it’s culinary expertise, focus on sustainability, and a commitment to exceptional customer service.
+![screenshot](documentation/about-us.png)
+![screenshot](documentation/about.png)
+
+#### Reservations
+
+- **Reserve a table**: The "Reserve a Table" link is featured on both the homepage section and the navigation bar, making it easily accessible. When a user clicks on the link, they are directed to log in or signup before reaching the booking page.
+![screenshot](documentation/homepage-desktop.png)
+![screenshot](documentation/booking-page-chrome.png)
+
+#### Signup/Login
+
+- **Login**: The login page allows users to securely access their accounts by entering their username and password. after login in, the users can edit and cancel there reservation from the dashboard.
+
+![screenshot](documentation/login-desktop.png)
+![screenshot](documentation/account-page-chrome.png)
+
+- **Sign Up**:
+
+#### Reservations
+
+- **Edit Reservation**: Users can edit their reservation here, allowing them to make adjustments to the date, time, and guest count. Whether plans change or preferences shift, this feature offers flexibility and convenience. By simply logging into their account, users can quickly modify their booking details and ensure everything aligns with their updated schedule. This seamless process enhances the overall customer experience, giving users more control over their dining plans while maintaining an easy-to-use interface.
+![screenshot](documentation/edit-reservation.png)
+
+- **Cancel Reservation**: Users can cancel their reservation here, providing them with the flexibility to manage their plans effortlessly. If their schedule changes or they no longer need the reservation, they can easily cancel with just a few clicks. This feature ensures that users have control over their bookings and can adjust their dining plans accordingly. Additionally, canceling a reservation frees up space for other guests, ensuring that your restaurant can accommodate more customers. The process is simple and user-friendly, offering a hassle-free way for customers to manage their dining experience.
+![screenshot](documentation/cancel-reservation.png)
+
+
+
+
 
 
 

@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from django.forms.widgets import DateInput, NumberInput, Select
 from datetime import datetime, date, time, timedelta
 
-
+# form for handling reservation
 class ReservationForm(forms.ModelForm):
     username = forms.CharField(
         label="Username",
@@ -48,7 +48,7 @@ class CustomUserCreationForm(UserCreationForm):
             user.save()
         return user
 
-
+# form for editting reservation
 class EditReservationForm(forms.ModelForm):
     reservation_date = forms.DateField(
         widget=forms.SelectDateWidget(), 

@@ -15,7 +15,7 @@ import os
 import sys
 import dj_database_url
 if os.path.isfile('env.py'):
-    import env
+    import env  # noqa:
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,21 +26,19 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-3e%q(1(0az8j6*8qi!j0t7%zp+qf7ta@y-5hj&bjbqhjcm1+u3'
-
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING:S don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ["8000-jojoakh-essencecuisine-qlbduc49ssw.ws.codeinstitute-ide.net", ".herokuapp.com"]
- 
+ALLOWED_HOSTS = ["127.0.0.1", ".herokuapp.com"]
+
 CSRF_TRUSTED_ORIGINS = [
-    'https://8000-jojoakh-essencecuisine-qlbduc49ssw.ws.codeinstitute-ide.net',
+    'https://localhost',
     'https://your-heroku-app.herokuapp.com'
 ]
 
- 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -52,7 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_summernote',
     'dine_essence',
-        
+
 ]
 
 MIDDLEWARE = [
@@ -90,12 +88,12 @@ WSGI_APPLICATION = 'essence_reserve.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-#DATABASES = {
+# DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',
 #       'NAME': BASE_DIR / 'db.sqlite3',
 #    }
-#}
+# }
 
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
@@ -109,16 +107,21 @@ if 'test' in sys.argv:
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.'
+        'UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 
@@ -148,6 +151,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Authentication settings
-LOGIN_URL = '/login/'  # Redirects to the login page if a user tries to access a protected view
+LOGIN_URL = '/login/'  # Redirects to the login page
 LOGIN_REDIRECT_URL = '/'  # Redirects after successful login
 LOGOUT_REDIRECT_URL = '/'  # Redirects after successful logout

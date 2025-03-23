@@ -4,8 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.exceptions import ValidationError
-from django.forms.widgets import DateInput, NumberInput, Select
-from datetime import datetime, date, time, timedelta
+
 
 # form for handling reservation
 class ReservationForm(forms.ModelForm):
@@ -16,7 +15,8 @@ class ReservationForm(forms.ModelForm):
 
     class Meta:
         model = Reservation
-        fields = ['username', 'reservation_date', 'reservation_time', 'guest_count', 'email', 'phone']
+        fields = ['username', 'reservation_date',
+                  'reservation_time', 'guest_count', 'email', 'phone']
         widgets = {
             'reservation_date': forms.DateInput(attrs={'type': 'date'}),
             'reservation_time': forms.TimeInput(attrs={'type': 'time'}),
@@ -28,11 +28,13 @@ class ReservationForm(forms.ModelForm):
         if user:
             self.fields['username'].initial = user.username
 
+
 class CustomUserCreationForm(UserCreationForm):
     """
     Customized user registration form that includes an email field.
     """
-    email = forms.EmailField(required=True, help_text="Enter a valid email address.")
+    email = forms.EmailField(required=True,
+                             help_text="Enter a valid email address.")
 
     class Meta:
         model = User
@@ -48,10 +50,11 @@ class CustomUserCreationForm(UserCreationForm):
             user.save()
         return user
 
+
 # form for editting reservation
 class EditReservationForm(forms.ModelForm):
     reservation_date = forms.DateField(
-        widget=forms.SelectDateWidget(), 
+        widget=forms.SelectDateWidget(),
         label="Reservation Date"
     )
     reservation_time = forms.ChoiceField(
@@ -59,9 +62,9 @@ class EditReservationForm(forms.ModelForm):
         label="Reservation Time"
     )
     guest_count = forms.IntegerField(
-        min_value=1, 
-        max_value=10, 
-        widget=forms.Select(choices=[(i, i) for i in range(1, 11)]),  # Dropdown from 1 to 10
+        min_value=1,
+        max_value=10,
+        widget=forms.Select(choices=[(i, i) for i in range(1, 11)]),
         label="Number of Guests"
     )
 
@@ -75,7 +78,8 @@ class EditReservationForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         # Update the reservation_time field choices dynamically
-        self.fields['reservation_time'].choices = [(slot, slot) for slot in time_slots]
+        self.fields['reservation_time'].choices = [(slot, slot)
+                                                   for slot in time_slots]
 
     def clean_reservation_date(self):
         # Ensure the selected date is not in the past

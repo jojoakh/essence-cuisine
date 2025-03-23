@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import time
+
 
 # Create your models here.
 # Reservation model
@@ -16,6 +16,7 @@ class Reservation(models.Model):
         return (f"{self.reservation_date} "
                 f"at {self.reservation_time} "
                 f"for {self.guest_count} guests")
+
 
 # Menu model
 class MenuItem(models.Model):

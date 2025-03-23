@@ -1,14 +1,11 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.core.validators import validate_email
-from django.core.exceptions import ValidationError
 from django.contrib import messages
-from django.http import HttpResponse
+from django.http import HttpResponseForbidden
 from django.http import JsonResponse
 from django.utils.dateparse import parse_date
 from django.utils import timezone
-from datetime import datetime
 from .forms import ReservationForm
 from .forms import EditReservationForm
 from .models import Reservation
@@ -30,12 +27,13 @@ def signup_view(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success
-            (request, "Account created successfully! You can now log in.")
+            messages.success(request,
+                             "Account created successfully! "
+                             "You can now log in.")
             return redirect('login')
         else:
-            messages.error
-            (request, "Error creating account. Please check the form.")
+            messages.error(request,
+                           "Error creating account. Please check the form.")
     else:
         form = UserCreationForm()
     return render(request, 'dine_essence/signup.html', {'form': form})
@@ -90,11 +88,8 @@ def make_reservation(request):
 
 @login_required
 def reservation_confirmation(request, reservation_id):
-    reservation = get_object_or_404(
-    Reservation, 
-    id=reservation_id, 
-    user=request.user
-)
+    reservation = get_object_or_404(Reservation, id=reservation_id,
+                                    user=request.user)
 
     return render(
         request,
@@ -105,25 +100,48 @@ def reservation_confirmation(request, reservation_id):
 def edit_reservation(request, reservation_id):
     reservation = get_object_or_404(Reservation, pk=reservation_id)
 
-    # Define available time slots (11:00 AM to 9:00 PM)
+    # Authorization check to ensure only the owner can edit
+    if reservation.user != request.user:
+        return HttpResponseForbidden(
+            "You are not allowed to access this reservation.")
+
+    # Prevent editing past reservations
+    reservation_datetime = timezone.make_aware(
+        datetime.combine(reservation.reservation_date,
+                         reservation.reservation_time)
+    )
+    if reservation_datetime < timezone.now():
+        messages.error(request,
+                       "This reservation has already passed "
+                       "and cannot be edited.")
+        return redirect('dashboard')
+
+    # Generate available time slots (11:00 AM – 9:00 PM in 30-min intervals)
     start_time = time(11, 0)
     end_time = time(21, 0)
     time_slots = []
+    now = timezone.now()
     current_time = datetime.combine(date.today(), start_time)
 
     while current_time.time() <= end_time:
-        time_slots.append(current_time.strftime("%H:%M"))
+        # Only show future time slots if the reservation date is today
+        if reservation.reservation_date > now.date() or (
+            reservation.reservation_date == now.date()
+            and current_time.time() >= now.time()
+        ):
+            time_slots.append(current_time.strftime("%H:%M"))
         current_time += timedelta(minutes=30)
 
-    # Exclude already booked slots for the selected date (excluding the current reservation)
+    # Exclude already booked slots (excluding the current reservation)
     if reservation.reservation_date:
         booked_slots = Reservation.objects.filter(
             reservation_date=reservation.reservation_date
         ).exclude(pk=reservation.pk).values_list('reservation_time', flat=True)
+
         booked_slots = [slot.strftime("%H:%M") for slot in booked_slots]
         time_slots = [slot for slot in time_slots if slot not in booked_slots]
 
-    # Initialize form with dynamically updated time slots
+    # 📝 Initialize form with dynamic time slots
     form = EditReservationForm(
         request.POST or None,
         instance=reservation,
@@ -132,19 +150,26 @@ def edit_reservation(request, reservation_id):
 
     if request.method == 'POST':
         if form.is_valid():
-            # Get the newly selected reservation date and time from the form
             new_reservation_date = form.cleaned_data['reservation_date']
             new_reservation_time = form.cleaned_data['reservation_time']
 
-            # Check if the new time slot is already booked (excluding the current reservation)
-            if Reservation.objects.filter(
+            # Combine into a datetime object and make it timezone-aware
+            new_datetime = timezone.make_aware(datetime.combine(
+                new_reservation_date,
+                datetime.strptime(new_reservation_time, "%H:%M").time()
+            ))
+
+            # Final validation: can't select a past date/time
+            if new_datetime < timezone.now():
+                form.add_error('reservation_time',
+                               "You cannot select a past date or time.")
+            elif Reservation.objects.filter(
                 reservation_date=new_reservation_date,
                 reservation_time=new_reservation_time
             ).exclude(pk=reservation.pk).exists():
-                form.add_error('reservation_time', 
-                "The selected time slot is already booked. Please choose another time.")
+                form.add_error('reservation_time',
+                               "The selected time slot is already booked.")
             else:
-                # If the time slot is available, save the updated reservation
                 form.save()
                 messages.success(request, "Reservation updated successfully!")
                 return redirect('dashboard')
@@ -152,16 +177,15 @@ def edit_reservation(request, reservation_id):
     return render(request, 'dine_essence/edit_reservation.html', {
         'form': form,
         'reservation': reservation,
-        'today': date.today().strftime("%Y-%m-%d"),
-        'guest_count_range': range(1, 11),  # Add guest count range
-        'time_slots': time_slots,          # Add available time slots
+        'today': timezone.now().date().strftime("%Y-%m-%d"),
+        'guest_count_range': range(1, 11),
+        'time_slots': time_slots,
     })
 
 
 def check_availability(request):
-    # Get the date and number of guests from the request
+    # Get the date from the request
     date = request.GET.get("date")
-    guests = int(request.GET.get("guests"))
 
     # Ensure the date is valid
     if not date:
@@ -211,17 +235,14 @@ def check_availability(request):
 @login_required
 def cancel_reservation(request, reservation_id):
     # Fetch user's reservation
-    reservation = get_object_or_404(
-    Reservation, 
-    id=reservation_id, 
-    user=request.user
-)
+    reservation = get_object_or_404(Reservation, id=reservation_id,
+                                    user=request.user)
 
     if request.method == 'POST':
         # Delete the reservation
         reservation.delete()
-        messages.success
-        (request, "Your reservation has been successfully canceled.")
+        messages.success(request,
+                         "Your reservation has been successfully canceled.")
         return redirect('dashboard')
 
     # Render the cancellation confirmation page

@@ -74,6 +74,28 @@ I've tested my deployed project for responsiveness issues.
 | Tablet (DevTools) | ![screenshot](documentation/home-tablet.png) | ![screenshot](documentation/about-tablet.png) | ![screenshot](documentation/booking-tablet.png) | ![screenshot](documentation/menu-tablet.png) | ![screenshot](documentation/account-tablet.png) | ![screenshot](documentation/signup-tablet.png) | ![screenshot](documentation/login-tablet.png)   | Works as expected |
 | Desktop | ![screenshot](documentation/homepage-desktop.png) | ![screenshot](documentation/aboutpage-chrome.png) | ![screenshot](documentation/booking-page-chrome.png) | ![screenshot](documentation/menu-page-chrome.png) | ![screenshot](documentation/account-page-chrome.png) | ![screenshot](documentation/signup-desktop.png) | ![screenshot](documentation/login-desktop.png)  | Works as expected |
 
+## Defensive Programming
+
+Defensive programming was manually tested with the below user acceptance testing:
+
+| Page | Expectation | Test | Result | Fix | Screenshot |
+| --- | --- | --- | --- | --- | --- |
+| All Pages | | | | | |
+| | The footer should contain social media icons, and  copyright. | Checked the footer section. | The footer displayed all expected elements: copyright and social media icon. | Test concluded and passed | ![screenshot](documentation/footer.png) |
+| | Logo should be visible on the header. | Loaded the homepage. | The logo was displayed as expected in the header section. | Test concluded and passed. | ![screenshot](documentation/icon.png) |
+| | The navigation adjusted and displayed a toggle menu correctly. | Checked navbar on mobile screen | It displays correctly | Test concluded and passed. | ![screenshot](documentation/mobile-nav.png) |
+| | Responsive navigation should expand to show links when the menu is toggled. | Clicked on the menu toggle. | The navigation expanded and displayed all links as expected. | Test concluded and passed. | ![screenshot](documentation/sidebar.png) |
+| | Social media links should be visible and linked correctly in the footer. | Clicked on each social media icon. | Each icon correctly linked to the corresponding social media page. | Test concluded and passed. | ![screenshot](documentation/footer.png) |
+| Home | | | | | |
+| | The Home Page section should display a clear, motivational message with an appropriate background. | Checked the section on page load. | The page displayed correctly with text and image. | Test concluded and passed. | ![screenshot](documentation/homepage-edge.png) |
+| Reservations | | | | | |
+| | If the user is unauthenticated and clicks "Reserve a table," they should be redirected to the login page. | Tested by clicking "Reserve a table" as an unauthenticated user. | The user was redirected to the login page as expected. | Test concluded and passed. | ![screenshot](documentation/login-desktop.png) |
+| | If the user is authenticated and clicks "Reserve a table," they should be redirected to the booking page. | Tested by clicking "Reserve a table" as an authenticated user. | The user was redirected to the booking page correctly. | Test concluded and passed. | ![screenshot](documentation/booking-page-chrome.png) | 
+| | The user should be able to edit reservations and make changes. | Tested by clicking "Edit reservations" as an authenticated user. | The user was redirected to the edit reservation page correctly. | Test concluded and passed. | ![screenshot](documentation/edit-reservation.png) |
+| Login | | | | | |
+| | The login form should accept username and password inputs, and provide a link to "Sign up." | Tested the login form . | The form accepted inputs as expected. "Sign up" links redirected correctly. | Test concluded and passed. | ![screenshot](documentation/login-desktop.png) |
+| | The "Sign up" link should redirect to the registration page. | Clicked the "Sign up" link. | The link redirected correctly to the registration page. | Test concluded and passed. | ![screenshot](documentation/signup-desktop.png) |
+
 ## Bugs
 
 - **Issue in edit_reservation Functionality**

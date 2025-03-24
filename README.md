@@ -11,6 +11,10 @@ We specialize in dishes that are crafted with the finest ingredients, carefully 
 
 We offers a diverse range of dishes, drawing inspiration from global culinary traditions. From locally sourced, seasonal ingredients to exotic spices and international flavors, our menu offers a journey of taste that spans continents while maintaining a local connection. Whether you’re craving an indulgent starter, a beautifully crafted main course, or a decadent dessert, we aim to delight every palate.
 
+![screenshot](documentation/responsive.png)
+
+source: [amiresponsive](https://ui.dev/amiresponsive?url=https://essence-cuisine-7b8c204f88bc.herokuapp.com/)
+
 ## UX
 
 ### Color Scheme
@@ -214,7 +218,7 @@ Using this approach, I was able to apply the MoSCow prioritization and labels to
 
 ## Deployment
 
-The live deployed application can be found deployed on [Heroku](https://woof-wash-grooming-b7fa1160192f.herokuapp.com/).
+The live deployed application can be found deployed on [Heroku](https://essence-cuisine-7b8c204f88bc.herokuapp.com/).
 
 ### PostgreSQL Database
 
@@ -343,18 +347,18 @@ Once the project is cloned or forked, in order to run it locally, you'll need to
 
 You can clone the repository by following these steps:
 
-1. Go to the [GitHub repository](https://github.com/Jordan-Boulton1/woof-wash-grooming) 
+1. Go to the [GitHub repository](https://github.com/jojoakh/essence-cuisine) 
 2. Locate the Code button above the list of files and click it 
 3. Select if you prefer to clone using HTTPS, SSH, or GitHub CLI and click the copy button to copy the URL to your clipboard
 4. Open Git Bash or Terminal
 5. Change the current working directory to the one where you want the cloned directory
 6. In your IDE Terminal, type the following command to clone my repository:
-	- `git clone https://github.com/Jordan-Boulton1/woof-wash-grooming.git`
+	- `git clone https://github.com/jojoakh/essence-cuisine`
 7. Press Enter to create your local clone.
 
 Alternatively, if using Gitpod, you can click below to create your own workspace using this repository.
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/Jordan-Boulton1/woof-wash-grooming)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/jojoakh/essence-cuisine)
 
 Please note that in order to directly open the project in Gitpod, you need to have the browser extension installed.
 A tutorial on how to do that can be found [here](https://www.gitpod.io/docs/configure/user-settings/browser-extension).

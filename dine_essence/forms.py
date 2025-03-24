@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.core.exceptions import ValidationError
+import re
 
 
 # form for handling reservation
@@ -27,6 +28,14 @@ class ReservationForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         if user:
             self.fields['username'].initial = user.username
+
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone')
+        pattern = re.compile(r'^\+?\d{10,15}$')
+        if not pattern.match(phone):
+            raise ValidationError(
+                "Enter a valid phone number (10-15 digits, optional '+').")
+        return phone
 
 
 class CustomUserCreationForm(UserCreationForm):

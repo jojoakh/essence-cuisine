@@ -40,7 +40,6 @@
             </div>
 
             <!-- Step 4: Enter Personal Details -->
-            <!-- Step 4: Enter Personal Details -->
             <div id="step-details" class="hidden">
                 <h3>Your Details</h3>
                 <div class="mb-3">
@@ -55,7 +54,10 @@
                 </div>
                 <div class="mb-3">
                     <label for="phone" class="form-label">Phone</label>
-                    <input type="tel" id="phone" name="phone" class="form-control" required>
+                    <input type="tel" id="phone" name="phone" class="form-control" required
+                           pattern="^\+?\d{10,15}$"
+                           title="Enter a valid phone number (10–15 digits, optional +)">
+
                 </div>
                 <div class="d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary">Submit Booking</button>
